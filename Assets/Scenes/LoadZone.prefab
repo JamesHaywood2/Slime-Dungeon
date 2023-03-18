@@ -122,4 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b39e2ab7555bb45bec79dbd2a977ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination: 
+  Destination: SampleScene
+  zoneName: 

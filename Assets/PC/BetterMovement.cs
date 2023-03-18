@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class BetterMovement : MonoBehaviour
 {
 
-    SceneLoader zoneLoader;
+    LoadZoneInfo loadZone;
+    RoomManager roomManager;
 
     Rigidbody2D rigid2D;
     Animator animator;
@@ -66,14 +67,24 @@ public class BetterMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.tag == "LoadZone")
         {
-            
+            //the player walks into a collision zone tagged LoadZone it will then go and find the GameObject of the loadzone.
+            //The gameobject has the destination as a public field.
+            //It then loads that scene
             Debug.Log("Entered Loadzone: " + other.name);
             GameObject LZ = GameObject.Find(other.name);
-            zoneLoader = LZ.GetComponent<SceneLoader>();
-            SceneManager.LoadScene(zoneLoader.Destination);
+            loadZone = LZ.GetComponent<LoadZoneInfo>();
+
+            //This should update lastRoom in RoomManager with the name of scene/room the loadZone was in.
+            GameObject RM = GameObject.Find("RoomManager");
+            roomManager = RM.GetComponent<RoomManager>();
+            roomManager.setLastRoom(LZ.scene.name);
+
+            SceneManager.LoadScene(loadZone.Destination);
 
         }
     }
+
 }
