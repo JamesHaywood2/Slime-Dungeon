@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BetterMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     LoadZoneInfo loadZone;
@@ -11,9 +11,9 @@ public class BetterMovement : MonoBehaviour
 
     Rigidbody2D rigid2D;
     Animator animator;
-    float jumpForce = 420.0f;
+    public float jumpForce = 420.0f;
 
-    public float walkSpeed = 10.0f;
+    public float walkSpeed = 6.0f;
 
     // Start is called before the first frame update
     void Start()
