@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-Class should pretty much always run. This doesn't have to stay, I just needed a way to keep the access lastRoom data. Should be attached to RoomManager.
-If we scrap this and store the lastRoom info somewhere else then we need to edit the movement script and LoadManager.
+This script kind of needs to be in EVERY single room. It's basically how we can keep certain data across scenes. Other data like flags, items, hud, etc, can be put in here aswell.
+This doesn't have to be the exact method we use, I mainly just needed a way to retain data across scenes. If there's a better option then thats fine. 
+-James
 */
 public class PlayerInfo : MonoBehaviour
 {

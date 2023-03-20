@@ -4,11 +4,9 @@ using UnityEngine;
 
 
 /*
-Okay so when LoadManager starts, and it should be in every room so it should always start, it goes and finds a object called RoomManager.
-The RoomManager contains the name of the last room/scene the player was in. Specifically the name/room the loadzone was in that brought the player to the new zone.
-It will take that name and see if there are any load points (empty game objects named load_from_ROOMNAME) for that specific room.
-If there are load points then it will will load them at that specific point. If there aren't then it will spawn them at the default load point.
-The default is a child of LoadManager so it should also exist in every room.
+Load manager just looks at the object PlayerInfo, which has the PlayerInfo.cs script. This contains general player information.
+It takes the lastRoom data and will then try and find the correct loadspot on the level. If that loadspot exists in the level then it will teleport the player there
+upon loading into the room. If it does not exist then it just teleports the player to the default position.
 */
 public class LoadManager : MonoBehaviour
 {
