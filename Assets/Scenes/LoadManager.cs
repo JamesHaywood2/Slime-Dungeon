@@ -14,16 +14,11 @@ public class LoadManager : MonoBehaviour
 {
 
     public GameObject player;
-    RoomManager roomManager;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject RM = GameObject.Find("RoomManager");
-        roomManager = RM.GetComponent<RoomManager>();
-        
-        GameObject loadSpot = GameObject.Find("load_from_" + roomManager.lastRoom);
+        GameObject loadSpot = GameObject.Find("load_from_" + PlayerInfo.pInfo.lastRoom);
 
        if (loadSpot != null){
             player.transform.position = new Vector3(loadSpot.transform.position.x, loadSpot.transform.position.y, transform.position.z);
@@ -31,12 +26,5 @@ public class LoadManager : MonoBehaviour
             loadSpot = GameObject.Find("load_from_Default");
             player.transform.position = new Vector3(loadSpot.transform.position.x, loadSpot.transform.position.y, transform.position.z);
        }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

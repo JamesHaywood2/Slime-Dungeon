@@ -7,13 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 
     LoadZoneInfo loadZone;
-    RoomManager roomManager;
 
     Rigidbody2D rigid2D;
     Animator animator;
-    public float jumpForce = 420.0f;
-
-    public float walkSpeed = 6.0f;
+    private float jumpForce = 435.0f;
+    private float walkSpeed = 6.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -76,11 +74,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Entered Loadzone: " + other.name);
             GameObject LZ = GameObject.Find(other.name);
             loadZone = LZ.GetComponent<LoadZoneInfo>();
-
-            //This should update lastRoom in RoomManager with the name of scene/room the loadZone was in.
-            GameObject RM = GameObject.Find("RoomManager");
-            roomManager = RM.GetComponent<RoomManager>();
-            roomManager.setLastRoom(LZ.scene.name);
+            
+            PlayerInfo.pInfo.lastRoom = LZ.scene.name;
 
             SceneManager.LoadScene(loadZone.Destination);
 
