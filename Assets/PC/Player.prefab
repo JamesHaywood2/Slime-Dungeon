@@ -509,6 +509,8 @@ GameObject:
   - component: {fileID: 211053376160410054}
   - component: {fileID: 162662206731022970}
   - component: {fileID: 759176696}
+  - component: {fileID: 1182826800}
+  - component: {fileID: 1182826799}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -525,7 +527,7 @@ Transform:
   m_GameObject: {fileID: 8988764597286232762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -28.557915, y: 14.550033, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4652607649193840331}
   m_Father: {fileID: 0}
@@ -613,8 +615,8 @@ MonoBehaviour:
   - {fileID: 1659272337446938675}
   - {fileID: 7382159016870897614}
   m_Bounds:
-    m_Center: {x: 0.40649056, y: 0.25900316, z: 0}
-    m_Extent: {x: 1.5456475, y: 2.9562383, z: 0}
+    m_Center: {x: 0.40649128, y: 0.2590027, z: 0}
+    m_Extent: {x: 1.5456476, y: 2.9562373, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!70 &211053376160410054
@@ -678,3 +680,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &1182826800
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8988764597286232762}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &1182826799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8988764597286232762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0120f2c4b38894644903110a950c3181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

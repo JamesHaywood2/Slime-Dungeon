@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         // reverse spring according to the direction
         if (key != 0)
         {
-            transform.localScale = new Vector3(key, 1, 1);
+            transform.localScale = new Vector3(key*0.4f, 0.4f, 0.4f);
         } 
 
         if (this.animator !=null){
