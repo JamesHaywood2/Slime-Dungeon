@@ -21,6 +21,11 @@ public class PlayerController2 : MonoBehaviour
 
     [SerializeField]private float maxFallSpeed = 15f;
 
+    //Coyote time is what lets the player jump even when they were slightly off the platform.
+    [SerializeField]private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+
+
 
     [Header("Ground checking variables")]
     public Transform groundCheck;
@@ -53,11 +58,21 @@ public class PlayerController2 : MonoBehaviour
         //JUMPING
         //If you are on the ground then you have all your jumps and haven't jumped.
         if (isGrounded()){
+
+            coyoteTimeCounter = coyoteTime;
+
             availableJumps = maxJumps;
             hasJumped = false;
-        } 
+
+            if (player.velocity.y < 0.25f){
+                player.velocity = new Vector2(player.velocity.x, 0);
+            }
+
+        } else {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
         //If you are not on the ground and have not jumped then you have walked off a ledge meaning you will have one less jump available.
-        if (isGrounded() == false && hasJumped == false){
+        if ((coyoteTimeCounter < 0f) && isGrounded() == false && hasJumped == false){
             availableJumps = maxJumps-1;
         }
 
@@ -76,6 +91,8 @@ public class PlayerController2 : MonoBehaviour
             player.velocity = new Vector2(player.velocity.x, jumpForce);
             availableJumps--;
             hasJumped = true;
+
+            coyoteTimeCounter = 0f;
         }
 
 
@@ -94,23 +111,29 @@ public class PlayerController2 : MonoBehaviour
         }
 
 
+
+        
+
+
         //Animation
         if (this.animator !=null){
-            if (direction !=0 && isGrounded() && (Mathf.Abs(player.velocity.x) > 0.25)){
+            if (direction !=0 && isGrounded() && (Mathf.Abs(player.velocity.x) > 0.25f)){
+                this.animator.speed = walkSpeed / 2.0f;
                 this.animator.SetTrigger("Walking");
             }
 
-            if (direction == 0 && isGrounded() && (Mathf.Abs(player.velocity.y)<0.25)){
+            if (direction == 0 && isGrounded() && (Mathf.Abs(player.velocity.y)<0.25f)){
+                this.animator.speed=1f;
                 this.animator.SetTrigger("Idle");
             }
 
             if ((player.velocity.y > 0) && !isGrounded()){
-
+                this.animator.speed=1f;
                 this.animator.SetTrigger("Jumping");
             }
 
             if ((player.velocity.y < 0) && !isGrounded()){
-
+                this.animator.speed=1f;
                 this.animator.SetTrigger("Falling");
             }
         }

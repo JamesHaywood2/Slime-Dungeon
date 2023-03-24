@@ -10,14 +10,16 @@ This doesn't have to be the exact method we use, I mainly just needed a way to r
 public class PlayerInfo : MonoBehaviour
 {
     public static PlayerInfo pInfo;
-
     public string lastRoom = "";
-    private int health;
+    public int maxHealth = 5;
+    public int currentHealth = 5;
 
 
     [Header("Flags")]
     public bool hasWallJump;
     public bool hasMelee;
+    public bool hasDash;
+    public bool Warp;
     public int allowedJumps = 1;
 
 
