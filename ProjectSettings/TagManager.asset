@@ -15,12 +15,12 @@ TagManager:
   - Water
   - UI
   - 
+  - Player
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Hazard
+  - Jump_Wall
   - 
   - 
   - 

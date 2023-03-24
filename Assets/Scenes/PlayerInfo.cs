@@ -12,14 +12,13 @@ public class PlayerInfo : MonoBehaviour
     public static PlayerInfo pInfo;
 
     public string lastRoom = "";
-    private int allowedJumps = 1;
     private int health;
 
 
-    //Flags
-    public int hasDoubleJump = 1;
-    public int hasWallJump = 1;
-    private int hasMelee;
+    [Header("Flags")]
+    public bool hasWallJump;
+    public bool hasMelee;
+    public int allowedJumps = 1;
 
 
 
