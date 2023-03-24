@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LoadZone
   - Terrain
+  - WallJump
   layers:
   - Default
   - TransparentFX

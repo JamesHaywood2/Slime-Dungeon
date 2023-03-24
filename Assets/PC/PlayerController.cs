@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rigid2D;
     Animator animator;
+    GameObject WallCheck;
     private float jumpForce = 435.0f;
     private float walkSpeed = 6.0f;
 
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         this.rigid2D = GetComponent<Rigidbody2D>();
         this.animator = GetComponent<Animator>();
-        jumps = PlayerInfo.pInfo.allowedJumps;
+        jumps = PlayerInfo.pInfo.getAllowedJumps();
     }
 
     // Update is called once per frame
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
 
         float speedx = Mathf.Abs(this.rigid2D.velocity.x);
+        float speedy = Mathf.Abs(this.rigid2D.velocity.y);
         
         // Jump
         /*
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         } else if (other.tag == "Terrain"){
             grounded = 1;
-            jumps=PlayerInfo.pInfo.allowedJumps;
+            jumps=PlayerInfo.pInfo.getAllowedJumps();
             Debug.Log("You are grounded");
             jumping = 0;
             falling = 0;
@@ -119,7 +121,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerExit2D(Collider2D other){
         if (other.tag == "Terrain"){
             grounded=0;
-            jumps=PlayerInfo.pInfo.allowedJumps-1;
+            jumps=PlayerInfo.pInfo.getAllowedJumps()-1;
             Debug.Log("Left the ground");
         }
     }
