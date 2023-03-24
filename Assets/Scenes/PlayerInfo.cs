@@ -12,7 +12,16 @@ public class PlayerInfo : MonoBehaviour
     public static PlayerInfo pInfo;
 
     public string lastRoom = "";
+    public int allowedJumps = 1;
     private int health;
+
+
+    //Flags
+    private int hasDoubleJump;
+    private int hasWallJump;
+    private int hasMelee;
+
+
 
 
     private void Awake(){

@@ -615,8 +615,8 @@ MonoBehaviour:
   - {fileID: 1659272337446938675}
   - {fileID: 7382159016870897614}
   m_Bounds:
-    m_Center: {x: 0.40649128, y: 0.2590027, z: 0}
-    m_Extent: {x: 1.5456476, y: 2.9562373, z: 0}
+    m_Center: {x: 0.40649104, y: 0.2590027, z: 0}
+    m_Extent: {x: 1.545647, y: 2.9562376, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!70 &211053376160410054
@@ -648,7 +648,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.43595314, y: -2.6697264}
+  m_Offset: {x: 0.37216932, y: -2.689352}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -659,7 +659,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2839165, y: 0.16570473}
+  m_Size: {x: 1.0189725, y: 0.20495605}
   m_EdgeRadius: 0
 --- !u!95 &759176696
 Animator:
@@ -671,7 +671,7 @@ Animator:
   m_GameObject: {fileID: 8988764597286232762}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 47a45cc6a5d6ca144bbeff41d93346b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: f01fb9196daca464bbbbef18cb35caa8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
