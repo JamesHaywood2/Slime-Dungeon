@@ -6,7 +6,9 @@ TagManager:
   tags:
   - LoadZone
   - Terrain
-  - WallJump
+  - Checkpoint
+  - RespawnPoint
+  - Hazard
   layers:
   - Default
   - TransparentFX
