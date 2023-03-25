@@ -11,6 +11,7 @@ public class PlayerController2 : MonoBehaviour
     Rigidbody2D player;
     private Vector3 scale;
     Animator animator;
+    
 
     [Header("Movement settings")]
     private float direction = 0f;
@@ -25,6 +26,9 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField]private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
 
+    [SerializeField]private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
+
 
 
     [Header("Ground checking variables")]
@@ -37,12 +41,20 @@ public class PlayerController2 : MonoBehaviour
     private Transform checkPoint;
     private Transform respawnPoint;
 
+    [Header("Hitbox")]
+    public GameObject hitbox;
+    private BoxCollider2D hitboxCollider;
+    [SerializeField]private float hitTime = 0.2f;
+    public float hitCounter;
+
 
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
+
+        hitboxCollider = hitbox.GetComponent<BoxCollider2D>();
 
         this.animator = GetComponent<Animator>();
 
@@ -84,16 +96,23 @@ public class PlayerController2 : MonoBehaviour
         }
         player.velocity = new Vector2(player.velocity.x, Mathf.Max(player.velocity.y, -maxFallSpeed));
 
-        //If you press the button Jump is assigned to in project input settings and you have more than 0 jumps you will jump.
-        //After jumping it will set hasJumped to true and decrease your available jumps.
-        if (Input.GetButtonDown("Jump") && availableJumps > 0){
+        //If you press jump it will set the jump buffer counter to the jump buffer time. It will then immeditally start counting down.
+        if (Input.GetButtonDown("Jump")){
+            jumpBufferCounter = jumpBufferTime;
+        } else {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        //If jumpBufferCounter is greater than 0, which it will be the frame you press space, and you have available jumps you then jump.
+        if ((jumpBufferCounter > 0f) && availableJumps > 0){
+            jumpBufferCounter = 0f;
             
             player.velocity = new Vector2(player.velocity.x, jumpForce);
             availableJumps--;
             hasJumped = true;
 
             coyoteTimeCounter = 0f;
-        }
+        } 
 
 
 
@@ -110,7 +129,24 @@ public class PlayerController2 : MonoBehaviour
             player.velocity = new Vector2(0, player.velocity.y);
         }
 
+        //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
+        //Actual hits are detected in the HitDetection script of the hitbox object.
+        if (Input.GetKeyDown(KeyCode.X)){
+            Debug.Log("Attack!");
+            
+            //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
+            hitboxCollider.size = new Vector2(2f, 1.5f);
+            hitboxCollider.offset = new Vector2(1.3f, 0);
 
+            hitCounter = hitTime;
+        } else {
+            hitCounter -= Time.deltaTime;
+        }
+
+        if (hitCounter < 0){
+            hitboxCollider.size = new Vector2(0, 0);
+            hitboxCollider.offset = new Vector2(0, 0);
+        }
 
         
 
@@ -174,6 +210,4 @@ public class PlayerController2 : MonoBehaviour
     private bool isGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
-
-
 }

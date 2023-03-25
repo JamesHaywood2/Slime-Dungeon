@@ -9,6 +9,7 @@ TagManager:
   - Checkpoint
   - RespawnPoint
   - Hazard
+  - BreakableWall
   layers:
   - Default
   - TransparentFX

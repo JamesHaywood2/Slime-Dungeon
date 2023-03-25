@@ -16,11 +16,13 @@ public class PlayerInfo : MonoBehaviour
 
 
     [Header("Flags")]
+    public int allowedJumps = 1;
     public bool hasWallJump;
     public bool hasMelee;
     public bool hasDash;
     public bool Warp;
-    public int allowedJumps = 1;
+    public int attackDamage;
+    public bool hasWallBreak;
 
 
 
