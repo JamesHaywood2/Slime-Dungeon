@@ -19,6 +19,16 @@ public class PlayerController2 : MonoBehaviour
     public float jumpForce = 10f;
     public int maxJumps;
     public int availableJumps;
+    private bool isWallSliding;
+    [SerializeField]private float wallSlideSpeed = 2f;
+
+    [SerializeField]private bool isWallJumping;
+    private float wallJumpCounter;
+    public float wallJumpDuration = 0.4f;
+    [SerializeField]private Vector2 wallJumpPower = new Vector2(4f, 4f);
+    
+
+
 
     [SerializeField]private float maxFallSpeed = 15f;
 
@@ -37,9 +47,16 @@ public class PlayerController2 : MonoBehaviour
     public LayerMask groundLayer;
     private bool hasJumped;
 
+    [Header("Wall checking varibales")]
+    public Transform wallCheck;
+    public float wallCheckRadius;
+    public LayerMask wallLayer;
+
+
     [Header("Respawn/Checkpoints")]
     private Transform checkPoint;
     private Transform respawnPoint;
+
 
     [Header("Hitbox")]
     public GameObject hitbox;
@@ -55,6 +72,7 @@ public class PlayerController2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
 
@@ -70,10 +88,13 @@ public class PlayerController2 : MonoBehaviour
     void Update()
     {
 
+        //WallSlide() basically just checks if the player is sliding along a wall. Used in wall jumping.
+        WallSlide();
 
         //JUMPING
-        //If you are on the ground then you have all your jumps and haven't jumped.
+        //If you are on the ground then you have all your jumps, haven't jumped, etc. 
         if (isGrounded()){
+            this.animator.SetBool("grounded", true);
 
             coyoteTimeCounter = coyoteTime;
 
@@ -85,15 +106,17 @@ public class PlayerController2 : MonoBehaviour
             }
 
         } else {
+            this.animator.SetBool("grounded", false);
             coyoteTimeCounter -= Time.deltaTime;
         }
+
         //If you are not on the ground and have not jumped then you have walked off a ledge meaning you will have one less jump available.
         if ((coyoteTimeCounter < 0f) && isGrounded() == false && hasJumped == false){
             availableJumps = maxJumps-1;
         }
 
         //This makes it so the player falls faster the longer they're in the air, up to a certain speed.
-        if (player.velocity.y < 0 && !isGrounded()){
+        if (player.velocity.y < 0 && !isGrounded() && !isWallSliding){
             player.gravityScale = player.gravityScale * 1.005f;
         } else {
             player.gravityScale = 1;
@@ -108,7 +131,17 @@ public class PlayerController2 : MonoBehaviour
         }
 
         //If jumpBufferCounter is greater than 0, which it will be the frame you press space, and you have available jumps you then jump.
-        if ((jumpBufferCounter > 0f) && availableJumps > 0){
+        //Additionally is you are sliding on a wall, and jumpBuffer>0 then you have wall jumped.
+        if ((isWallSliding) && (jumpBufferCounter > 0f)){
+            jumpBufferCounter = 0f;
+            coyoteTimeCounter = 0f;
+            hasJumped = true;
+
+            isWallJumping = true;
+            wallJumpCounter = wallJumpDuration;
+            player.velocity = new Vector2(-direction * wallJumpPower.x, wallJumpPower.y);
+        } 
+        else if ((jumpBufferCounter > 0f) && availableJumps > 0){
             player.velocity = new Vector2(player.velocity.x, jumpForce);
             availableJumps--;
             hasJumped = true;
@@ -118,19 +151,28 @@ public class PlayerController2 : MonoBehaviour
         } 
 
 
-
-
         //HORIZONTAL MOVEMENT
         //Gets input from the arrow keys. -1 is left 1 is right
         direction = Input.GetAxisRaw("Horizontal");
 
-        //If an arrow key is pressed it will add velocity to the player in whatever direction you have pressed.
-        if (direction != 0f){
-            transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
-            player.velocity = new Vector2(direction * walkSpeed, player.velocity.y);
+        //Above there is a section that determines if you have wall jumped.
+        //For the duration of the wall jump you don't actually have control over your character.
+        //If you're in the wall jump then you have control like normal.
+        if (isWallJumping && !isGrounded()){
+            wallJumpCounter -= Time.deltaTime;
+            if (wallJumpCounter < 0f){
+                isWallJumping = false;
+            }
         } else {
-            player.velocity = new Vector2(0, player.velocity.y);
+            if (direction != 0f){
+                transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
+                player.velocity = new Vector2(direction * walkSpeed, player.velocity.y);
+            } else {
+                player.velocity = new Vector2(0, player.velocity.y);
+            }
         }
+
+        
 
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
@@ -229,5 +271,20 @@ public class PlayerController2 : MonoBehaviour
 
     private bool isGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private bool isWalled(){
+        return Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
+    }
+
+    private void WallSlide(){
+        if (isWalled() && !isGrounded() && direction!=0){
+            isWallSliding = true;
+            player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
+            this.animator.SetBool("wallSliding", true);
+        } else {
+            isWallSliding = false;
+            this.animator.SetBool("wallSliding", false);
+        }
     }
 }
