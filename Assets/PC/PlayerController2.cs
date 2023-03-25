@@ -45,7 +45,11 @@ public class PlayerController2 : MonoBehaviour
     public GameObject hitbox;
     private BoxCollider2D hitboxCollider;
     [SerializeField]private float hitTime = 0.2f;
-    public float hitCounter;
+    private float hitCounter;
+
+    [Header("Hit Cooldown")]
+    public float attackCooldown = 0.15f;
+    private float attackCounter;
 
 
     // Start is called before the first frame update
@@ -105,12 +109,11 @@ public class PlayerController2 : MonoBehaviour
 
         //If jumpBufferCounter is greater than 0, which it will be the frame you press space, and you have available jumps you then jump.
         if ((jumpBufferCounter > 0f) && availableJumps > 0){
-            jumpBufferCounter = 0f;
-            
             player.velocity = new Vector2(player.velocity.x, jumpForce);
             availableJumps--;
             hasJumped = true;
 
+            jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
         } 
 
@@ -131,16 +134,33 @@ public class PlayerController2 : MonoBehaviour
 
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (Input.GetKeyDown(KeyCode.X)){
-            Debug.Log("Attack!");
-            
-            //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
-            hitboxCollider.size = new Vector2(2f, 1.5f);
-            hitboxCollider.offset = new Vector2(1.3f, 0);
+        if (Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
+            //Debug.Log("Attack!");
 
             hitCounter = hitTime;
+            attackCounter = attackCooldown;
+            
+            //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
+            if (Input.GetKey(KeyCode.UpArrow)){
+                Debug.Log("Attack goes up");
+                hitboxCollider.size = new Vector2(3f, 1f);
+                hitboxCollider.offset = new Vector2(0.1f, 1.5f);
+                this.animator.SetTrigger("Attack_Up");
+            } else if (Input.GetKey(KeyCode.DownArrow) && isGrounded()==false){
+                Debug.Log("Attack goes down");
+                hitboxCollider.size = new Vector2(3f, 1.2f);
+                hitboxCollider.offset = new Vector2(0.1f, -1.4f);
+                this.animator.SetTrigger("Attack_Down");
+            } else {
+                Debug.Log("Attack goes forward");
+                hitboxCollider.size = new Vector2(2f, 1.5f);
+                hitboxCollider.offset = new Vector2(1.3f, 0);
+                this.animator.SetTrigger("Attack_Ground");
+            }
+            
         } else {
             hitCounter -= Time.deltaTime;
+            attackCounter -= Time.deltaTime;
         }
 
         if (hitCounter < 0){
