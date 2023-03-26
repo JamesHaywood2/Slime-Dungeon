@@ -11,13 +11,19 @@ public class PlayerController2 : MonoBehaviour
     Rigidbody2D player;
     private Vector3 scale;
     Animator animator;
+
+
+    [Header("Unlocks")]
+    public int maxJumps;
+    public bool hasWallJump;
+    public bool hasDash;
+    public bool hasMelee;
     
 
     [Header("Movement settings")]
     private float direction = 0f;
     public float walkSpeed = 5f;
     public float jumpForce = 10f;
-    public int maxJumps;
     public int availableJumps;
     private bool isWallSliding;
     [SerializeField]private float wallSlideSpeed = 2f;
@@ -27,8 +33,6 @@ public class PlayerController2 : MonoBehaviour
     public float wallJumpDuration = 0.4f;
     [SerializeField]private Vector2 wallJumpPower = new Vector2(4f, 4f);
     
-
-
 
     [SerializeField]private float maxFallSpeed = 15f;
 
@@ -72,7 +76,6 @@ public class PlayerController2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
 
@@ -80,8 +83,13 @@ public class PlayerController2 : MonoBehaviour
 
         this.animator = GetComponent<Animator>();
 
+        //Stuff from PlayerInfo
         maxJumps = PlayerInfo.pInfo.getAllowedJumps();
         availableJumps = maxJumps;
+
+        hasWallJump = PlayerInfo.pInfo.hasWallJump;
+        hasDash = PlayerInfo.pInfo.hasDash;
+        hasMelee = PlayerInfo.pInfo.hasMelee;
     }
 
     // Update is called once per frame
@@ -176,7 +184,7 @@ public class PlayerController2 : MonoBehaviour
 
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
+        if (hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
             //Debug.Log("Attack!");
 
             hitCounter = hitTime;
@@ -278,7 +286,7 @@ public class PlayerController2 : MonoBehaviour
     }
 
     private void WallSlide(){
-        if (isWalled() && !isGrounded() && direction!=0){
+        if (hasWallJump && isWalled() && !isGrounded() && direction!=0){
             isWallSliding = true;
             player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
             this.animator.SetBool("wallSliding", true);
