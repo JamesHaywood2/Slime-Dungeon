@@ -10,6 +10,11 @@ TagManager:
   - RespawnPoint
   - Hazard
   - BreakableWall
+  - meleeItem
+  - wallBreakItem
+  - doubleJumpItem
+  - wallJumpItem
+  - dashItem
   layers:
   - Default
   - TransparentFX
