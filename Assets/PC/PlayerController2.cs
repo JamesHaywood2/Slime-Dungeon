@@ -15,9 +15,6 @@ public class PlayerController2 : MonoBehaviour
 
     [Header("Unlocks")]
     public int maxJumps;
-    public bool hasWallJump;
-    public bool hasDash;
-    public bool hasMelee;
     
 
     [Header("Movement settings")]
@@ -86,10 +83,6 @@ public class PlayerController2 : MonoBehaviour
         //Stuff from PlayerInfo
         maxJumps = PlayerInfo.pInfo.getAllowedJumps();
         availableJumps = maxJumps;
-
-        hasWallJump = PlayerInfo.pInfo.hasWallJump;
-        hasDash = PlayerInfo.pInfo.hasDash;
-        hasMelee = PlayerInfo.pInfo.hasMelee;
     }
 
     // Update is called once per frame
@@ -184,7 +177,7 @@ public class PlayerController2 : MonoBehaviour
 
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
+        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
             //Debug.Log("Attack!");
 
             hitCounter = hitTime;
@@ -247,6 +240,7 @@ public class PlayerController2 : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Player collided with " + other.name);
         if (other.tag == "LoadZone")
         {
             //the player walks into a collision zone tagged LoadZone it will then go and find the GameObject of the loadzone.
@@ -273,6 +267,30 @@ public class PlayerController2 : MonoBehaviour
         else if (other.tag == "RespawnPoint")
         {
             respawnPoint = other.transform;
+        } else if (other.tag == "Enemy")
+        {
+            //Code for when player gets hit.
+        } else if (other.tag == "meleeItem")
+        {
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.hasMelee = true;
+        } else if (other.tag == "wallBreakItem")
+        {
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.hasWallBreak = true;
+        } else if (other.tag == "doubleJumpItem")
+        {
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.allowedJumps = 2;
+            maxJumps = 2;
+        } else if (other.tag == "wallJumpItem")
+        {
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.hasWallJump = true;
+        } else if (other.tag == "dashItem")
+        {
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.hasDash = true;
         }
     }
 
@@ -286,7 +304,7 @@ public class PlayerController2 : MonoBehaviour
     }
 
     private void WallSlide(){
-        if (hasWallJump && isWalled() && !isGrounded() && direction!=0){
+        if (PlayerInfo.pInfo.hasWallJump && isWalled() && !isGrounded() && direction!=0){
             isWallSliding = true;
             player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
             this.animator.SetBool("wallSliding", true);

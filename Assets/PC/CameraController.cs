@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float cameraOffset = 2.0f;
+    [SerializeField] private float cameraOffset = 2.0f;
     
-
-    public GameObject player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //this.player = GameObject.Find("Skeleton");
-    }
+    [SerializeField] public GameObject player;
 
     // Update is called once per frame
     void Update()
