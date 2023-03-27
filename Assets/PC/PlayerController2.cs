@@ -13,8 +13,9 @@ public class PlayerController2 : MonoBehaviour
     Animator animator;
 
 
-    [Header("Unlocks")]
+    [Header("Misc Player Variables")]
     public int maxJumps;
+    public int health;
     
 
     [Header("Movement settings")]
@@ -81,8 +82,9 @@ public class PlayerController2 : MonoBehaviour
         this.animator = GetComponent<Animator>();
 
         //Stuff from PlayerInfo
-        maxJumps = PlayerInfo.pInfo.getAllowedJumps();
+        maxJumps = PlayerInfo.pInfo.allowedJumps;
         availableJumps = maxJumps;
+        health = PlayerInfo.pInfo.currentHealth;
     }
 
     // Update is called once per frame
@@ -240,7 +242,7 @@ public class PlayerController2 : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Player collided with " + other.name);
+        //Debug.Log("Player collided with " + other.name);
         if (other.tag == "LoadZone")
         {
             //the player walks into a collision zone tagged LoadZone it will then go and find the GameObject of the loadzone.
@@ -254,7 +256,10 @@ public class PlayerController2 : MonoBehaviour
 
             SceneManager.LoadScene(loadZone.Destination);
 
-        } 
+        } else if (other.tag == "AggroRange"){
+            Enemy enemy = other.GetComponentInParent<Enemy>();
+            enemy.isAggro = true;
+        }
         else if(other.tag == "Hazard")
         {
             player.transform.position = new Vector3(checkPoint.position.x, checkPoint.position.y, checkPoint.position.z);
@@ -269,7 +274,7 @@ public class PlayerController2 : MonoBehaviour
             respawnPoint = other.transform;
         } else if (other.tag == "Enemy")
         {
-            //Code for when player gets hit.
+            //Code for when hit by an enemy.
         } else if (other.tag == "meleeItem")
         {
             Destroy(other.gameObject);
@@ -294,6 +299,13 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.tag == "FOV" && other.transform.parent.gameObject.tag == "Enemy"){
+            Enemy enemy = other.transform.parent.gameObject.GetComponent<Enemy>();
+            enemy.isAggro = false;
+        }
+    }
+
 
     private bool isGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
@@ -312,5 +324,11 @@ public class PlayerController2 : MonoBehaviour
             isWallSliding = false;
             this.animator.SetBool("wallSliding", false);
         }
+    }
+
+    //Late update, if I understand it correctly, is called after update is done.
+    private void LateUpdate(){
+        PlayerInfo.pInfo.currentHealth = health;
+        PlayerInfo.pInfo.playerPos = new Vector2(player.position.x, player.position.y);
     }
 }

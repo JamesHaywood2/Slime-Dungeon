@@ -10,9 +10,11 @@ This doesn't have to be the exact method we use, I mainly just needed a way to r
 public class PlayerInfo : MonoBehaviour
 {
     public static PlayerInfo pInfo;
-    public string lastRoom = "";
     public int maxHealth = 5;
     public int currentHealth = 5;
+
+    [HideInInspector]
+    public Vector2 playerPos;
 
 
     [Header("Flags")]
@@ -25,6 +27,19 @@ public class PlayerInfo : MonoBehaviour
     public bool hasWallBreak;
 
 
+    [Header("Rooms")]
+    public string lastRoom;
+    public string currentRoom;
+    public bool room_Start;
+    public bool room_Melee;
+    public bool room_WallBreak;
+    public bool room_WallJump;
+    public bool room_DoubleJump;
+    public bool room_Dash;
+    public bool room_WarpUnlock;
+
+    public bool room_1;
+    public bool room_2;
 
 
     private void Awake(){

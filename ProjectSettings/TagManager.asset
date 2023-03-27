@@ -15,6 +15,13 @@ TagManager:
   - doubleJumpItem
   - wallJumpItem
   - dashItem
+  - OneWayDoor
+  - Enemy
+  - FOV
+  - AggroRange
+  - EnemyBumper
+  - EnemyBumperAbs
+  - JumpPad
   layers:
   - Default
   - TransparentFX
@@ -33,9 +40,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Enemy Fields
+  - Enemy Bumpers
   - 
   - 
   - 
