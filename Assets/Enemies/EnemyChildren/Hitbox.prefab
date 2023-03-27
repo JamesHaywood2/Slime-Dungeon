@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5458606250617031751
+--- !u!1 &2291583096653434872
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5458606250617031769}
-  - component: {fileID: 5458606250617031750}
-  - component: {fileID: 1147444456}
-  m_Layer: 19
-  m_Name: Jump Pad
-  m_TagString: JumpPad
+  - component: {fileID: 2291583096653434873}
+  - component: {fileID: 2291583096653434871}
+  - component: {fileID: 2291583096653434870}
+  m_Layer: 0
+  m_Name: Hitbox
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5458606250617031769
+--- !u!4 &2291583096653434873
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5458606250617031751}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.08, y: -34.79, z: 0}
+  m_GameObject: {fileID: 2291583096653434872}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5458606250617031750
+--- !u!61 &2291583096653434871
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5458606250617031751}
+  m_GameObject: {fileID: 2291583096653434872}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -56,18 +56,18 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &1147444456
+--- !u!114 &2291583096653434870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5458606250617031751}
+  m_GameObject: {fileID: 2291583096653434872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421dfaec5e58ba945bd7c79d081f1140, type: 3}
+  m_Script: {fileID: 11500000, guid: f4856779047166949b5e01289bfce0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpPower: 8
+  hitbox: {fileID: 2291583096653434872}

@@ -190,7 +190,8 @@ public class Enemy_Controller : MonoBehaviour
             enemy.isAggro = false;
             enemy.isReturning = true;
         } else if (other.tag == "JumpPad"){
-            RB.velocity = new Vector2(RB.velocity.x, 8);
+            
+            RB.velocity = new Vector2(RB.velocity.x, other.GetComponent<JumpPad>().jumpPower);
         }
     }
 
