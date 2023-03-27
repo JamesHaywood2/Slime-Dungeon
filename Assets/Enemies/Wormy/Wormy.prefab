@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -5572879418278687272}
   - component: {fileID: 6065781602325543783}
   - component: {fileID: 5218796617514060827}
-  - component: {fileID: 1974033081}
   - component: {fileID: 1974033082}
+  - component: {fileID: 1974033081}
   m_Layer: 0
   m_Name: Wormy
   m_TagString: Enemy
@@ -146,6 +146,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1974033082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880537477942228031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d174767a42a250b4c998d9c8c0dbeacb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FOV: {fileID: 6257632806645652675}
+  aggroRange: {fileID: 3585654350968351127}
+  hitbox: {fileID: 2291583096223936702}
+  direction: 1
+  attackCounter: 0
+  hitCounter: 0
+  hitTime: 0.4
 --- !u!114 &1974033081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,29 +185,12 @@ MonoBehaviour:
   effectiveRange: {x: 0, y: 0}
   attackSpeed: 3
   isWalking: 0
+  isChilling: 0
   isPatrolling: 1
   isAggro: 0
   isReturning: 0
   returnSpot: {x: 0, y: 0}
---- !u!114 &1974033082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6880537477942228031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d174767a42a250b4c998d9c8c0dbeacb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FOV: {fileID: 6257632806645652675}
-  aggroRange: {fileID: 3585654350968351127}
-  hitbox: {fileID: 2291583096223936702}
-  direction: 1
-  attackCounter: 0
-  hitCounter: 0
-  hitTime: 0.4
+  hasReturned: 0
 --- !u!1001 &652672838
 PrefabInstance:
   m_ObjectHideFlags: 0

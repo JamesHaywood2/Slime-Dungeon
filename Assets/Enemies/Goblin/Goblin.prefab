@@ -166,10 +166,12 @@ MonoBehaviour:
   effectiveRange: {x: 0, y: 0}
   attackSpeed: 3
   isWalking: 0
+  isChilling: 0
   isPatrolling: 1
   isAggro: 0
   isReturning: 0
   returnSpot: {x: 0, y: 0}
+  hasReturned: 0
 --- !u!114 &220904890
 MonoBehaviour:
   m_ObjectHideFlags: 0

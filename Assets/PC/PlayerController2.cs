@@ -303,6 +303,7 @@ public class PlayerController2 : MonoBehaviour
         if (other.tag == "FOV" && other.transform.parent.gameObject.tag == "Enemy"){
             Enemy enemy = other.transform.parent.gameObject.GetComponent<Enemy>();
             enemy.isAggro = false;
+            enemy.isReturning = true;
         }
     }
 

@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour
 
     //If walking then they are walking in direction. If not they are idling.
     public bool isWalking;
+    //isChilling is like the opposite of isPatrolling.
+    public bool isChilling;
     //If they are patrolling then they are walking back and forth between a set area and not chilling.
     //If they are chilling then they are just swapping between idle/walk animations in a set area.
     public bool isPatrolling;
@@ -42,4 +44,5 @@ public class Enemy : MonoBehaviour
     public bool isReturning;
     //Spot that the enemy attempts returns to after losing agro.
     public Vector2 returnSpot;
+    public bool hasReturned;
 }

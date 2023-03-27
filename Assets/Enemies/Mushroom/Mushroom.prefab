@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -8905875311573185771}
   - component: {fileID: 2540391074643926212}
   - component: {fileID: 7368664095667947375}
-  - component: {fileID: 1844428374}
   - component: {fileID: 1844428375}
+  - component: {fileID: 4256761020438209139}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Enemy
@@ -146,30 +146,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1844428374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970627834064359050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6657646cf11e48a4a9f8f929a62a2981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 4
-  health: 2
-  moveSpeed: 4
-  hitBoxSize: {x: 0, y: 0}
-  hitBoxOffset: {x: 0, y: 0}
-  effectiveRange: {x: 0, y: 0}
-  attackSpeed: 1
-  isWalking: 0
-  isPatrolling: 1
-  isAggro: 0
-  isReturning: 0
-  returnSpot: {x: 0, y: 0}
 --- !u!114 &1844428375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +165,32 @@ MonoBehaviour:
   attackCounter: 0
   hitCounter: 0
   hitTime: 0.4
+--- !u!114 &4256761020438209139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970627834064359050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6657646cf11e48a4a9f8f929a62a2981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  health: 1
+  moveSpeed: 4
+  hitBoxSize: {x: 0, y: 0}
+  hitBoxOffset: {x: 0, y: 0}
+  effectiveRange: {x: 1, y: 1}
+  attackSpeed: 1
+  isWalking: 0
+  isChilling: 0
+  isPatrolling: 1
+  isAggro: 0
+  isReturning: 0
+  returnSpot: {x: 0, y: 0}
+  hasReturned: 0
 --- !u!1001 &64555747
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -185,10 +185,12 @@ MonoBehaviour:
   effectiveRange: {x: 2, y: 2.5}
   attackSpeed: 3
   isWalking: 0
-  isPatrolling: 1
+  isChilling: 0
+  isPatrolling: 0
   isAggro: 0
   isReturning: 0
   returnSpot: {x: 0, y: 0}
+  hasReturned: 0
 --- !u!1001 &2291583097025935870
 PrefabInstance:
   m_ObjectHideFlags: 0
