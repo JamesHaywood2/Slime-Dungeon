@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Controller : MonoBehaviour
+public class Enemy_Controller2 : MonoBehaviour
 {
     Rigidbody2D RB;
     private Vector3 scale;
@@ -22,6 +22,9 @@ public class Enemy_Controller : MonoBehaviour
     public float hitCounter;
     public float hitTime = 0.4f;
 
+    private bool isMoving;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +43,7 @@ public class Enemy_Controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         //If aggro is false, and enemy is not returning to his designated location,
         //then he exhibits normal non aggressive behavior within his designated bounds. Bounds are defined by the GameObject enemy bumper tagged with the EnemyBumper tag.
@@ -52,10 +55,26 @@ public class Enemy_Controller : MonoBehaviour
             //The third stage is when they are not patrolling or idling. They just stand in place and idle until aggro is drawn.
             if (enemy.isPatrolling == true){
                 enemy.isWalking = true;
-            } else if (enemy.isChilling == false){
-                enemy.isWalking = false;
+            } else if (enemy.isChilling == true){
+                //If enemy is not patrolling then they must be just chilling. Generate a random number every time chillTime reaches zero.
+                if (chillCounter < 0f){
+                    chillCounter = chillTime;
+                    //If the randomly generated number triggers, then it swaps between walking and idling.
+                    float rand = Random.Range(0.00f, 1.00f);
+                    if (rand <= 0.45f){
+                        if (Random.Range(0.00f, 1.00f) < 0.5f){
+                            direction *= -1;
+                        }
+                        enemy.isWalking = !enemy.isWalking;
+                    }
+
+                } else {
+                    chillCounter -= Time.deltaTime;
+                }
+            } else {
+                enemy.isWalking=false;
             }
-            
+
 
         } else if (enemy.isAggro == true && enemy.isReturning == false){
            //As soon as the player enters an enemies aggro range, indicated by a child GameObject containing a boxcollider, it will set is Aggro to true.
@@ -90,22 +109,19 @@ public class Enemy_Controller : MonoBehaviour
                     animator.speed = 1f/(hitTime*5f);
                     animator.SetTrigger("Attack");
                     attackCounter = enemy.attackSpeed;
-                    RB.velocity = new Vector2(0, RB.velocity.y);
+                    enemy.isWalking=false;
 
                     hitboxCollider.offset = enemy.hitBoxOffset;
                     hitboxCollider.size = enemy.hitBoxSize;
 
                     //How long the hitbox stays around.
                     hitCounter = hitTime;
-                } else if (hitCounter < 0f) {
+                } else if (hitCounter <0f){
                     //Not within effective range, and hitbox is gone (attack finished), then move towards player.
                     enemy.isWalking=true;
                 } else {
-                    //Can attack, not within range, and hitbox is not gone (attack in progress), make sure the player isn't walking and can't move.
-                    enemy.isWalking=false;
-                    RB.velocity = new Vector2(0, RB.velocity.y);
+                    enemy.isWalking = false;
                 }
-
 
             } else {
                 //If attack is on cooldown (can't attack)
@@ -117,7 +133,6 @@ public class Enemy_Controller : MonoBehaviour
                 } else {
                     //and the hitbox is not gone(attack in progress), then do not move the player.
                     hitCounter -= Time.deltaTime;
-                    RB.velocity = new Vector2(0, RB.velocity.y);
                     enemy.isWalking = false;
                 }
             }
@@ -145,40 +160,21 @@ public class Enemy_Controller : MonoBehaviour
         if (enemy.isWalking == true){
             animator.speed = enemy.moveSpeed/1f;
             animator.SetTrigger("Walking");
-            RB.velocity = new Vector2(direction * enemy.moveSpeed, RB.velocity.y);
             transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
         } else {
-            RB.velocity = new Vector2(0, RB.velocity.y);
             animator.speed = 1f;
             animator.SetTrigger("Idle");
         }
 
-
     }
 
     private void FixedUpdate() {
-        //If the enemy is not patrolling, does not have aggro, and is not returning to their default location
-        //then generate a random number to determine if they should be walking or idling.
-        if (enemy.isChilling == true && enemy.isPatrolling == false && enemy.isAggro == false && enemy.isReturning==false){
-            //If enemy is not patrolling then they must be just chilling. Generate a random number every time chillTime reaches zero.
-            if (chillCounter < 0f){
-                chillCounter = chillTime;
-                //If the randomly generated number triggers, then it swaps between walking and idling.
-                float rand = Random.Range(0.00f, 1.00f);
-                if (rand <= 0.45f){
-                    if (Random.Range(0.00f, 1.00f) < 0.5f){
-                        direction *= -1;
-                    }
-                    enemy.isWalking = !enemy.isWalking;
-                }
-
-            } else {
-                chillCounter -= Time.deltaTime;
-            }
-
+        if (enemy.isWalking){
+            RB.velocity = new Vector2(direction * enemy.moveSpeed, RB.velocity.y);
+        } else {
+            RB.velocity = new Vector2(0, RB.velocity.y);
         }
-
-
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other) {    
@@ -201,7 +197,4 @@ public class Enemy_Controller : MonoBehaviour
         }
         //getting hit/taking damage?
     }
-
-
 }
-
