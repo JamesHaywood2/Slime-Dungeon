@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     [Header("Hitbox Info")]
     public Vector2 hitBoxSize;
     public Vector2 hitBoxOffset;
-    public Vector2 effectiveRange;
+    public Vector2 attackRange;
     public float attackSpeed;
 
     [Header("State flags")]

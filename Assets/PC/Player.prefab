@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6430561628913710259}
   m_Layer: 0
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: HitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 1979595257}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -820,25 +820,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c0abdb6c51da0468d98f153064af30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumps: 2
   health: 5
   walkSpeed: 5
+  maxJumps: 2
   jumpForce: 10
-  availableJumps: 0
-  wallSlideSpeed: 2
-  isWallJumping: 0
-  wallJumpDuration: 0.4
-  wallJumpPower: {x: 4, y: 4}
   maxFallSpeed: 15
   coyoteTime: 0.2
   jumpBufferTime: 0.2
-  onGround: 0
+  wallSlideSpeed: 2
+  wallJumpPower: {x: 4, y: 4}
+  wallJumpDuration: 0.4
   groundCheck: {fileID: 373255325}
   groundCheckRadius: 0.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  onWall: 0
   wallCheck: {fileID: 742581983}
   wallCheckRadius: 0.5
   wallLayer:

@@ -24,6 +24,7 @@ public class PlayerInfo : MonoBehaviour
     public bool hasDash;
     public bool Warp;
     public int attackDamage;
+    public float attackForce;
     public bool hasWallBreak;
 
 

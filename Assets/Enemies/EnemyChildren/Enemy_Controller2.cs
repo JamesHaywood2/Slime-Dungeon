@@ -11,14 +11,22 @@ public class Enemy_Controller2 : MonoBehaviour
     [SerializeField]private BoxCollider2D hitboxCollider;
     private int direction = 1;
 
+    private bool isDead;
 
-    private float chillTime = 1f;
+    [SerializeField]private float chillTime = 1f;
     private float chillCounter;
 
     [Header("Attack")]
-    [SerializeField]private float hitTime;
     private float attackCounter;
+    [SerializeField]private float hitTime;
     private float hitCounter;
+    private bool isHit;
+
+    [Header("Ranges")]
+    public float aggroRadius;
+    public float fovRadius;
+    public float attackRange;
+    private float distance;
 
     
 
@@ -44,6 +52,12 @@ public class Enemy_Controller2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distance = Vector3.Distance(PlayerInfo.pInfo.playerPos, this.transform.position);
+        inAggroRange();
+        inFovRange();
+
+
+
         //If aggro is false, and enemy is not returning to his designated location,
         //then he exhibits normal non aggressive behavior within his designated bounds. Bounds are defined by the GameObject enemy bumper tagged with the EnemyBumper tag.
         //These bumpers just swap the the direction the enemy is facing and thus the direction they're moving.
@@ -89,27 +103,24 @@ public class Enemy_Controller2 : MonoBehaviour
             //If the enemy is directly below (or above) the player like in above they won't actually go to the player, just stand below/above them.
             //This can be solved with actual enemy pathing, but I don't want to deal with that. -James
             //If the enemies x position is lower than the players x position they are too the left. else right.
-            if (RB.position.x < PlayerInfo.pInfo.playerPos.x){
-                direction = 1;
-            } else {
-                direction = -1;
-            }
+            direction = directionOfPlayer();
 
             //So as soon as the enemy is aggroed it should leave it's spot to try and get to the player.
             enemy.hasReturned = false;
 
             //attackCounter <0f means the enemy is able to attack (attack is not on cooldown).
             if (attackCounter < 0f){
-                //This checks if the player is within an effective range of the enemies attack
-                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= enemy.effectiveRange.x)
+                //This checks if the player is within an attack range of the enemies attack
+                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= attackRange)
                 {
-                    //If the player is in the effective x range, then stop moving and just wait for the player to fall.
+                    //If the player is in the attack x range, then stop moving and just wait for the player to fall.
                     enemy.isWalking=false;
                     animator.SetBool("Walking",false);
                     animator.SetTrigger("Idle");
 
-                    if (Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= enemy.effectiveRange.y){
-                        animator.speed = 1f/(hitTime*5f);
+                    if (Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= attackRange){
+                        direction = directionOfPlayer();
+                        animator.speed = 1f;
                         animator.SetTrigger("Attack");
                         attackCounter = enemy.attackSpeed;
                     }
@@ -118,7 +129,7 @@ public class Enemy_Controller2 : MonoBehaviour
 
 
                 } else {
-                    //If player is not in effective x range, then move till they are.
+                    //If player is not in attack x range, then move till they are.
                     enemy.isWalking=true;
                     animator.SetBool("Walking",true);
                 }
@@ -155,34 +166,76 @@ public class Enemy_Controller2 : MonoBehaviour
 
         }
 
-        if (enemy.isWalking == true){
+        if (hitCounter < 0f){
+            //If hitCounter is less than 0 then the player shouldn't be playing the hit animation.
+            //Or when hit counter reaches zero it turns isHit off.
+            isHit = false;
+            animator.SetBool("Hit", false);
+        } else {
+            hitCounter -= Time.deltaTime;
+        }
+
+        if (isHit){
+        }
+        //If the enemy isWalking, play the walking animation and set Walking animation to true.
+        else if (enemy.isWalking == true){
             animator.speed = enemy.moveSpeed/1f;
             animator.SetBool("Walking",true);
-            transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
+            if (!isDead){
+                transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
+            }
         } else {
             animator.speed = 1f;
             animator.SetTrigger("Idle");
             animator.SetBool("Walking",false);
         }
 
+        if (isDead){
+            enemy.isWalking = false;
+            enemy.moveSpeed = 0f;
+            hitboxCollider.enabled = false;
+        }
+
+        if (enemy.health <= 0){
+                animator.SetTrigger("Killed");
+                animator.SetBool("Dead", true);
+                isDead = true;
+
+                if (enemy.type == Enemy.EnemyType.Skeleton 
+                || enemy.type == Enemy.EnemyType.Goblin
+                || enemy.type == Enemy.EnemyType.Mushroom){
+                    //If the enemy is a Skeleton then just resize the hitbox to 0.
+                    //The ending animation for these is just a corpse so it can actually stay and not look stupid.
+                    aggroRadius=0;
+                    fovRadius=0;
+                    attackRange=0;
+                    //Add a hitbox around the enemy that damages player if they touch. Set it to zero here.
+                    //this.GetComponent<CapsuleCollider2D>().size = new Vector2(0.5f, 0.5f);
+                    //this.GetComponent<CapsuleCollider2D>().offset = new Vector2(0f, -((this.GetComponent<SpriteRenderer>().bounds.size.y/2) + 0.5f));
+                    this.gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+                } else {
+                    Destroy(this);
+                }
+            }
+
     }
 
     private void FixedUpdate() {
-        if (enemy.isWalking){
+        //If the enemy was hit, and hitCounter (iframes or something?) then they just go in the direction they were hit.
+        //Note, may not actually hit them opposite of the player. :) - james.
+        if (isHit == true){
+            //RB.velocity = new Vector2(-direction * 1f, .25f);
+        } else if (enemy.isWalking){
             RB.velocity = new Vector2(direction * enemy.moveSpeed, RB.velocity.y);
         } else {
             RB.velocity = new Vector2(0, RB.velocity.y);
         }
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other) {    
+        Debug.Log("Other: " + other.tag);
+        Debug.Log("Parent: " + other.transform.parent.tag);
         if (enemy.isAggro == false && enemy.isReturning == false && other.tag == "EnemyBumper" && enemy.hasReturned == true){
-            // if (RB.position.x - other.transform.position.x < .5f){
-            //     direction = -1;
-            // } else {
-            //     direction = 1;
-            // }
             direction *= -1;
             RB.transform.position += new Vector3(-direction * RB.GetComponent<CapsuleCollider2D>().offset.x + (direction * (RB.GetComponent<CapsuleCollider2D>().size.x)/2), 0f, 0f);
         } else if (other.tag == "EnemyBumperAbs"){
@@ -194,9 +247,31 @@ public class Enemy_Controller2 : MonoBehaviour
         } else if (other.tag == "JumpPad"){
             RB.velocity = new Vector2(RB.velocity.x, other.GetComponent<JumpPad>().jumpPower);
         }
-        //getting hit/taking damage?
-    }
+        else if (other.tag == "HitBox" && other.transform.parent.tag == "Player"){
+            if (isHit == false){
+                enemy.health -= PlayerInfo.pInfo.attackDamage;
+                hitCounter = hitTime;
+                isHit = true;
 
+                // how much the character should be knocked back is PlayerInfo.pInfo.attackForce
+                // calculate force vector
+                var force = transform.position - other.transform.position;
+                // normalize force vector to get direction only and trim magnitude
+                force.Normalize();
+                RB.AddForce(force * PlayerInfo.pInfo.attackForce * 10);
+
+                
+                //If the player took a hit, play the animation.
+                animator.speed = 1f;
+                animator.SetBool("Hit", true);
+                animator.SetTrigger("damaged");
+                hitboxCollider.enabled = false;
+
+            } else {
+                Debug.Log("Enemy was already hit");
+            }
+        }
+    }
 
     private void hitboxOn(){
         hitboxCollider.enabled = true;
@@ -205,4 +280,46 @@ public class Enemy_Controller2 : MonoBehaviour
     private void hitboxOff(){
         hitboxCollider.enabled = false;
     }
+
+    private void inAggroRange(){
+        if (distance <= aggroRadius){
+            enemy.isAggro = true;
+            enemy.isReturning = false;
+        }
+    }
+
+    private void inFovRange(){
+        if ( !(distance <= fovRadius) ){
+            //Player has left the FOV range.
+            if (enemy.isAggro){
+                enemy.isAggro = false;
+                enemy.isReturning = true;
+            }
+        }
+    }
+    
+    private int directionOfPlayer(){
+        int d = 0;
+        if (RB.position.x < PlayerInfo.pInfo.playerPos.x){
+                d = 1;
+        } else {
+                d = -1;
+        }
+        return d;
+    }
+
+     #region EDITOR METHODS
+    void OnDrawGizmosSelected()
+    {
+        //Draw the aggroRange
+		Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aggroRadius);
+        //draw the FOV range.
+		Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, fovRadius);
+        //draw the attackRange
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+	}
+    #endregion
 }

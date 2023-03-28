@@ -285,10 +285,6 @@ public class PlayerController3 : MonoBehaviour
 
             SceneManager.LoadScene(loadZone.Destination);
 
-        } else if (other.tag == "AggroRange"){
-            Enemy enemy = other.GetComponentInParent<Enemy>();
-            enemy.isAggro = true;
-            enemy.isReturning = false;
         }
         else if(other.tag == "Hazard")
         {
@@ -330,13 +326,7 @@ public class PlayerController3 : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other.tag == "FOV" && other.transform.parent.gameObject.tag == "Enemy"){
-            Enemy enemy = other.transform.parent.gameObject.GetComponent<Enemy>();
-            if (enemy.isAggro){
-                enemy.isAggro = false;
-                enemy.isReturning = true;
-            }
-        }
+
     }
 
 

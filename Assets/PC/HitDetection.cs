@@ -26,13 +26,6 @@ public class HitDetection : MonoBehaviour
         if (objectHit.tag == "BreakableWall" && PlayerInfo.pInfo.hasWallBreak && owner.tag == "Player"){
             Debug.Log(other.gameObject.name + " Has been destroyed!");
             Destroy(other.gameObject);
-        } else if (objectHit.tag == "Player" && owner.tag != "FOV"){
-            //If the hitbox that is being hit is the Player, and it's not the FOV hitbox.
-            PlayerInfo.pInfo.currentHealth = PlayerInfo.pInfo.currentHealth - damage;
-        } else if (objectHit.tag == "Enemy"){
-            //If the hitbox that is being hit is the enemy.
-            Enemy enemy = owner.GetComponent<Enemy>();
-            enemy.health = enemy.health - damage;
         } 
     }
 

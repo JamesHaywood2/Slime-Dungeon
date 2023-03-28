@@ -82,11 +82,11 @@ public class Enemy_Controller : MonoBehaviour
 
             //attackCounter <0f means the enemy is able to attack (attack is not on cooldown).
             if (attackCounter < 0f){
-                //This checks if the player is within an effective range of the enemies attack
-                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= enemy.effectiveRange.x &&
-                Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= enemy.effectiveRange.y)
+                //This checks if the player is within an attack range of the enemies attack
+                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= enemy.attackRange.x &&
+                Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= enemy.attackRange.y)
                 {
-                    //If the player is in effective range, and is able to attack, then attack.
+                    //If the player is in attack range, and is able to attack, then attack.
                     animator.speed = 1f/(hitTime*5f);
                     animator.SetTrigger("Attack");
                     attackCounter = enemy.attackSpeed;
@@ -98,7 +98,7 @@ public class Enemy_Controller : MonoBehaviour
                     //How long the hitbox stays around.
                     hitCounter = hitTime;
                 } else if (hitCounter < 0f) {
-                    //Not within effective range, and hitbox is gone (attack finished), then move towards player.
+                    //Not within attack range, and hitbox is gone (attack finished), then move towards player.
                     enemy.isWalking=true;
                 } else {
                     //Can attack, not within range, and hitbox is not gone (attack in progress), make sure the player isn't walking and can't move.

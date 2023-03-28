@@ -43,4 +43,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1f015c71fea5f41be3cd123bc69d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 5
+  playerPos: {x: 0, y: 0}
+  allowedJumps: 3
+  hasWallJump: 1
+  hasMelee: 1
+  hasDash: 1
+  Warp: 0
+  attackDamage: 1
+  hasWallBreak: 1
   lastRoom: 
+  currentRoom: 
+  room_Start: 0
+  room_Melee: 0
+  room_WallBreak: 0
+  room_WallJump: 0
+  room_DoubleJump: 0
+  room_Dash: 0
+  room_WarpUnlock: 0
+  room_1: 0
+  room_2: 0
