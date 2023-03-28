@@ -18,16 +18,13 @@ public class Enemy : MonoBehaviour
     public int health;
     public float moveSpeed;
 
-    //[HideInInspector]
+    [Header("Hitbox Info")]
     public Vector2 hitBoxSize;
-    //[HideInInspector]
     public Vector2 hitBoxOffset;
-    //[HideInInspector]
     public Vector2 effectiveRange;
-
     public float attackSpeed;
 
-
+    [Header("State flags")]
     //If walking then they are walking in direction. If not they are idling.
     public bool isWalking;
     //isChilling is like the opposite of isPatrolling.

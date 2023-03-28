@@ -6,23 +6,22 @@ public class Enemy_Controller2 : MonoBehaviour
 {
     Rigidbody2D RB;
     private Vector3 scale;
-    Animator animator;
+    private Animator animator;
     private Enemy enemy;
-    public Collider2D FOV;
-    public Collider2D aggroRange;
-    public GameObject hitbox;
+    [SerializeField]private GameObject hitbox;
     private BoxCollider2D hitboxCollider;
-    public int direction = 1;
+    private int direction = 1;
 
 
     private float chillTime = 1f;
     private float chillCounter;
 
-    public float attackCounter;
-    public float hitCounter;
-    public float hitTime = 0.4f;
+    [Header("Attack")]
+    [SerializeField]private float hitTime;
+    private float attackCounter;
+    private float hitCounter;
 
-    private bool isMoving;
+    
 
 
     // Start is called before the first frame update

@@ -8,54 +8,50 @@ public class PlayerController3 : MonoBehaviour
 
     [Header("components")]
     LoadZoneInfo loadZone;
-
     Rigidbody2D player;
     private Vector3 scale;
     Animator animator;
 
-
     [Header("Misc Player Variables")]
-    public int maxJumps;
     public int health;
     
 
     [Header("Movement settings")]
-    private float direction = 0f;
     public float walkSpeed = 5f;
+    private float direction = 0f;
+
+    [Header("Jump Variables")]
+    public int maxJumps;
+    private int availableJumps;
     public float jumpForce = 10f;
-    public int availableJumps;
-    private bool isWallSliding;
-    [SerializeField]private float wallSlideSpeed = 2f;
-
-    [SerializeField]private bool isWallJumping;
-    private float wallJumpCounter;
-    public float wallJumpDuration = 0.4f;
-    [SerializeField]private Vector2 wallJumpPower = new Vector2(4f, 4f);
-    
-
     [SerializeField]private float maxFallSpeed = 15f;
-
-    //Coyote time is what lets the player jump even when they were slightly off the platform.
-    [SerializeField]private float coyoteTime = 0.2f;
+    [SerializeField]private float coyoteTime = 0.2f; //Coyote time is what lets the player jump even when they were slightly off the platform.
     private float coyoteTimeCounter;
-
-    [SerializeField]private float jumpBufferTime = 0.2f;
+    [SerializeField]private float jumpBufferTime = 0.2f; //If you press the jump button, but you're not on the ground yet (still falling) you can still jump if it's within this time.
     private float jumpBufferCounter;
+    private bool hasJumped;
 
+    [Header("Wall Jump")]
+    [SerializeField]private float wallSlideSpeed = 2f;
+    [SerializeField]private Vector2 wallJumpPower = new Vector2(4f, 4f);
+    [SerializeField]private float wallJumpDuration = 0.4f;
+    private float wallJumpCounter;
+    private bool isWallSliding;
+    private bool isWallJumping;
 
 
     [Header("Ground checking variables")]
-    public bool onGround;
-    public Transform groundCheck;
-    public float groundCheckRadius;
-    public LayerMask groundLayer;
-    private bool hasJumped;
+    
+    [SerializeField]private Transform groundCheck;
+    [SerializeField]private float groundCheckRadius;
+    [SerializeField]private LayerMask groundLayer;
+    private bool onGround;
 
     [Header("Wall checking varibales")]
-    public bool onWall;
-    public Transform wallCheck;
-    public float wallCheckRadius;
-    public LayerMask wallLayer;
+    [SerializeField]private Transform wallCheck;
+    [SerializeField]private float wallCheckRadius;
+    [SerializeField]private LayerMask wallLayer;
+    private bool onWall;
 
 
     [Header("Respawn/Checkpoints")]
@@ -70,7 +66,7 @@ public class PlayerController3 : MonoBehaviour
     private float hitCounter;
 
     [Header("Hit Cooldown")]
-    public float attackCooldown = 0.15f;
+    [SerializeField]private float attackCooldown = 0.15f;
     private float attackCounter;
 
     // Start is called before the first frame update

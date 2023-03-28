@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 211053376160410054}
   - component: {fileID: 759176696}
   - component: {fileID: 1182826800}
-  - component: {fileID: 5840807199890316342}
+  - component: {fileID: 1979595257}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -748,8 +748,8 @@ MonoBehaviour:
   - {fileID: 1659272337446938675}
   - {fileID: 7382159016870897614}
   m_Bounds:
-    m_Center: {x: 0.32168365, y: 0.3916824, z: 0}
-    m_Extent: {x: 1.5531106, y: 3.089219, z: 0}
+    m_Center: {x: 0.32168365, y: 0.39168048, z: 0}
+    m_Extent: {x: 1.5531106, y: 3.089221, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!70 &211053376160410054
@@ -808,7 +808,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5840807199890316342
+--- !u!114 &1979595257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -817,33 +817,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 8988764597286232762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e1c94c2ad7b97418642a8eb807550c, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c0abdb6c51da0468d98f153064af30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumps: 1
-  hasWallJump: 0
-  hasDash: 0
-  hasMelee: 0
+  maxJumps: 2
+  health: 5
   walkSpeed: 5
-  jumpForce: 8
-  availableJumps: 1
+  jumpForce: 10
+  availableJumps: 0
   wallSlideSpeed: 2
   isWallJumping: 0
   wallJumpDuration: 0.4
-  wallJumpPower: {x: 7, y: 7}
+  wallJumpPower: {x: 4, y: 4}
   maxFallSpeed: 15
   coyoteTime: 0.2
   jumpBufferTime: 0.2
+  onGround: 0
   groundCheck: {fileID: 373255325}
   groundCheckRadius: 0.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  onWall: 0
   wallCheck: {fileID: 742581983}
   wallCheckRadius: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 4096
   hitbox: {fileID: 538765167}
-  hitTime: 0.15
-  attackCooldown: 0.35
+  hitTime: 0.2
+  attackCooldown: 0.15
