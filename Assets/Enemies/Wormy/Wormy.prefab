@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -5572879418278687272}
   - component: {fileID: 6065781602325543783}
   - component: {fileID: 5218796617514060827}
-  - component: {fileID: 1974033082}
   - component: {fileID: 1974033081}
+  - component: {fileID: 6265022122158739489}
   m_Layer: 0
   m_Name: Wormy
   m_TagString: Enemy
@@ -146,25 +146,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1974033082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6880537477942228031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d174767a42a250b4c998d9c8c0dbeacb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FOV: {fileID: 6257632806645652675}
-  aggroRange: {fileID: 3585654350968351127}
-  hitbox: {fileID: 2291583096223936702}
-  direction: 1
-  attackCounter: 0
-  hitCounter: 0
-  hitTime: 0.4
 --- !u!114 &1974033081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,9 +161,9 @@ MonoBehaviour:
   type: 2
   health: 3
   moveSpeed: 3
-  hitBoxSize: {x: 0, y: 0}
-  hitBoxOffset: {x: 0, y: 0}
-  effectiveRange: {x: 0, y: 0}
+  hitBoxSize: {x: 2, y: 1.4}
+  hitBoxOffset: {x: 0.25, y: -0.1}
+  effectiveRange: {x: 1.5, y: 2}
   attackSpeed: 3
   isWalking: 0
   isChilling: 0
@@ -191,6 +172,20 @@ MonoBehaviour:
   isReturning: 0
   returnSpot: {x: 0, y: 0}
   hasReturned: 0
+--- !u!114 &6265022122158739489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880537477942228031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7a5135963ab424882840680acc94c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitboxCollider: {fileID: 2291583096223936689}
+  hitTime: 0
 --- !u!1001 &652672838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +193,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2949171873658642801}
     m_Modifications:
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
       propertyPath: m_Name
       value: Hitbox
@@ -248,14 +259,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
---- !u!1 &2291583096223936702 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
-  m_PrefabInstance: {fileID: 652672838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2291583096223936703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2291583096653434873, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+  m_PrefabInstance: {fileID: 652672838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2291583096223936689 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
   m_PrefabInstance: {fileID: 652672838}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1469692583
@@ -320,11 +331,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3585654349601493811, guid: 0b83bd75dec44cb449fc0bb4c0274e3c, type: 3}
   m_PrefabInstance: {fileID: 1469692583}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &3585654350968351127 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3585654349601493808, guid: 0b83bd75dec44cb449fc0bb4c0274e3c, type: 3}
-  m_PrefabInstance: {fileID: 1469692583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1752166607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,6 +338,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2949171873658642801}
     m_Modifications:
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Size.x
+      value: 26.97546
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Offset.x
+      value: 4.098137
+      objectReference: {fileID: 0}
     - target: {fileID: 6257632808116562957, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -385,10 +399,5 @@ PrefabInstance:
 --- !u!4 &6257632806645652674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6257632808116562957, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
-  m_PrefabInstance: {fileID: 1752166607}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &6257632806645652675 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
   m_PrefabInstance: {fileID: 1752166607}
   m_PrefabAsset: {fileID: 0}

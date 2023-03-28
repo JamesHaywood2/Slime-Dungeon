@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6657646cf11e48a4a9f8f929a62a2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 4
   health: 1
   moveSpeed: 4
   hitBoxSize: {x: 1.4, y: 1.5}
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7a5135963ab424882840680acc94c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 2291583096673813787}
+  hitboxCollider: {fileID: 2291583096673813780}
   hitTime: 0.4
 --- !u!1001 &64555747
 PrefabInstance:
@@ -193,6 +193,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1910258041398194628}
     m_Modifications:
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4699035
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.y
+      value: 1.6322346
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.90990376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.05980587
+      objectReference: {fileID: 0}
     - target: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
       propertyPath: m_Name
       value: Hitbox
@@ -243,14 +259,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
---- !u!1 &2291583096673813787 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
-  m_PrefabInstance: {fileID: 64555747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2291583096673813786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2291583096653434873, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+  m_PrefabInstance: {fileID: 64555747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2291583096673813780 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
   m_PrefabInstance: {fileID: 64555747}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &333783007
@@ -260,6 +276,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1910258041398194628}
     m_Modifications:
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Size.x
+      value: 29.211317
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Offset.x
+      value: 2.9802084
+      objectReference: {fileID: 0}
     - target: {fileID: 6257632808116562957, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
       propertyPath: m_RootOrder
       value: 0

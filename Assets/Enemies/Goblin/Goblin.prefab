@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6230297594688329318}
   - component: {fileID: 963953249572235554}
   - component: {fileID: 220904889}
-  - component: {fileID: 220904890}
+  - component: {fileID: 1062208491254279340}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Enemy
@@ -161,8 +161,8 @@ MonoBehaviour:
   type: 3
   health: 3
   moveSpeed: 3.5
-  hitBoxSize: {x: 0, y: 0}
-  hitBoxOffset: {x: 0, y: 0}
+  hitBoxSize: {x: 4.7, y: 2.4}
+  hitBoxOffset: {x: 0.15, y: 0.35}
   effectiveRange: {x: 0, y: 0}
   attackSpeed: 3
   isWalking: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   isReturning: 0
   returnSpot: {x: 0, y: 0}
   hasReturned: 0
---- !u!114 &220904890
+--- !u!114 &1062208491254279340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,16 +181,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3651667941365317342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d174767a42a250b4c998d9c8c0dbeacb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e7a5135963ab424882840680acc94c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOV: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
-  aggroRange: {fileID: 3585654349195926137}
-  hitbox: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
-  direction: 1
-  attackCounter: 0
-  hitCounter: 0
-  hitTime: 0.4
+  hitboxCollider: {fileID: 2291583096343522879}
+  hitTime: 0
 --- !u!1001 &679250249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -253,11 +248,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3585654349601493811, guid: 0b83bd75dec44cb449fc0bb4c0274e3c, type: 3}
   m_PrefabInstance: {fileID: 679250249}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &3585654349195926137 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3585654349601493808, guid: 0b83bd75dec44cb449fc0bb4c0274e3c, type: 3}
-  m_PrefabInstance: {fileID: 679250249}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &797516232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265,6 +255,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 437642569862200555}
     m_Modifications:
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.x
+      value: 4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 2291583096653434872, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
       propertyPath: m_Name
       value: Hitbox
@@ -320,6 +326,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2291583096653434873, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
   m_PrefabInstance: {fileID: 797516232}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &2291583096343522879 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
+  m_PrefabInstance: {fileID: 797516232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1132861171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,6 +338,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 437642569862200555}
     m_Modifications:
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Size.x
+      value: 25.00365
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257632808116562956, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
+      propertyPath: m_Offset.x
+      value: 5.084042
+      objectReference: {fileID: 0}
     - target: {fileID: 6257632808116562957, guid: 1aa32c42825039e43b7648e577c659af, type: 3}
       propertyPath: m_RootOrder
       value: 0

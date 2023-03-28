@@ -8,8 +8,7 @@ public class Enemy_Controller2 : MonoBehaviour
     private Vector3 scale;
     private Animator animator;
     private Enemy enemy;
-    [SerializeField]private GameObject hitbox;
-    private BoxCollider2D hitboxCollider;
+    [SerializeField]private BoxCollider2D hitboxCollider;
     private int direction = 1;
 
 
@@ -31,11 +30,12 @@ public class Enemy_Controller2 : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         scale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         this.animator = GetComponent<Animator>();
-        hitboxCollider = hitbox.GetComponent<BoxCollider2D>();
 
         enemy = GetComponent<Enemy>();
         enemy.returnSpot = RB.transform.position;
         enemy.hasReturned = true;
+
+        hitboxCollider.enabled = false;
 
 
         chillCounter = chillTime;
@@ -101,39 +101,38 @@ public class Enemy_Controller2 : MonoBehaviour
             //attackCounter <0f means the enemy is able to attack (attack is not on cooldown).
             if (attackCounter < 0f){
                 //This checks if the player is within an effective range of the enemies attack
-                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= enemy.effectiveRange.x &&
-                Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= enemy.effectiveRange.y)
+                if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= enemy.effectiveRange.x)
                 {
-                    //If the player is in effective range, and is able to attack, then attack.
-                    animator.speed = 1f/(hitTime*5f);
-                    animator.SetTrigger("Attack");
-                    attackCounter = enemy.attackSpeed;
+                    //If the player is in the effective x range, then stop moving and just wait for the player to fall.
                     enemy.isWalking=false;
+                    animator.SetBool("Walking",false);
+                    animator.SetTrigger("Idle");
 
-                    hitboxCollider.offset = enemy.hitBoxOffset;
-                    hitboxCollider.size = enemy.hitBoxSize;
+                    if (Mathf.Abs(PlayerInfo.pInfo.playerPos.y - RB.position.y) <= enemy.effectiveRange.y){
+                        animator.speed = 1f/(hitTime*5f);
+                        animator.SetTrigger("Attack");
+                        attackCounter = enemy.attackSpeed;
+                    }
+                    
+                    //hitboxOn() should be called as an event in the animation and hitboxOff() at the end of it.
 
-                    //How long the hitbox stays around.
-                    hitCounter = hitTime;
-                } else if (hitCounter <0f){
-                    //Not within effective range, and hitbox is gone (attack finished), then move towards player.
-                    enemy.isWalking=true;
+
                 } else {
-                    enemy.isWalking = false;
+                    //If player is not in effective x range, then move till they are.
+                    enemy.isWalking=true;
+                    animator.SetBool("Walking",true);
                 }
+
+            } else if (hitboxCollider.enabled == true) {
+                //If the hitbox is enabled then the attack is in progress.
+                //If the hitbox is disabled then the attack either hasn't started.
+                //We want the attack animation to continue and finish if it's active.
+                Debug.Log("Attack in progress");
 
             } else {
+                //If the player can't attack, then it attack is on cooldown.
                 //If attack is on cooldown (can't attack)
-                if (hitCounter < 0){
-                    //and the hitbox is hitbox is gone (attack finished), then set the hitbox size and everything to 0 and subtract time from attack cooldown.
-                    attackCounter -= Time.deltaTime;
-                    hitboxCollider.offset = new Vector2(0f,0f);
-                    hitboxCollider.size = new Vector2(0f,0f);
-                } else {
-                    //and the hitbox is not gone(attack in progress), then do not move the player.
-                    hitCounter -= Time.deltaTime;
-                    enemy.isWalking = false;
-                }
+                attackCounter -= Time.deltaTime;
             }
 
         } else if (enemy.isReturning == true){
@@ -158,11 +157,12 @@ public class Enemy_Controller2 : MonoBehaviour
 
         if (enemy.isWalking == true){
             animator.speed = enemy.moveSpeed/1f;
-            animator.SetTrigger("Walking");
+            animator.SetBool("Walking",true);
             transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
         } else {
             animator.speed = 1f;
             animator.SetTrigger("Idle");
+            animator.SetBool("Walking",false);
         }
 
     }
@@ -195,5 +195,14 @@ public class Enemy_Controller2 : MonoBehaviour
             RB.velocity = new Vector2(RB.velocity.x, other.GetComponent<JumpPad>().jumpPower);
         }
         //getting hit/taking damage?
+    }
+
+
+    private void hitboxOn(){
+        hitboxCollider.enabled = true;
+    }
+
+    private void hitboxOff(){
+        hitboxCollider.enabled = false;
     }
 }
