@@ -23,6 +23,8 @@ TagManager:
   - EnemyBumperAbs
   - JumpPad
   - HitBox
+  - Hurtbox
+  - UnlockTrigger
   layers:
   - Default
   - TransparentFX
@@ -39,8 +41,8 @@ TagManager:
   - Jump_Wall
   - 
   - 
-  - 
-  - Hitbox
+  - hurtbox
+  - hitbox
   - Enemy
   - Enemy Fields
   - Enemy Bumpers

@@ -69,6 +69,13 @@ public class PlayerController3 : MonoBehaviour
     [SerializeField]private float attackCooldown = 0.15f;
     private float attackCounter;
 
+    [Header("Take damage variables")]
+    [SerializeField]private float iFrameDuration = 0.2f;
+    private float iFrameCounter;
+    private bool isInvincible;
+    private bool controlsEnabled;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,13 +90,16 @@ public class PlayerController3 : MonoBehaviour
         maxJumps = PlayerInfo.pInfo.allowedJumps;
         availableJumps = maxJumps;
         health = PlayerInfo.pInfo.currentHealth;
+        controlsEnabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Check's if the player is entering left or right arrow indicating that they are moving.
-        direction = Input.GetAxisRaw("Horizontal");
+        if (!isInvincible){
+            direction = Input.GetAxisRaw("Horizontal");
+        } 
 
         //Calls isWalled() to check if the player is up against a wall.
         //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
@@ -108,7 +118,7 @@ public class PlayerController3 : MonoBehaviour
         }
 
         //If the player is on a wall, in the air, holding a direction, and has the ability unlocked, then it sets isWallSliding indicates to the system that the player is wallSliding.
-        if (PlayerInfo.pInfo.hasWallJump && onWall && !onGround && direction!=0){
+        if (PlayerInfo.pInfo.hasWallJump && onWall && !onGround && direction!=0 && controlsEnabled){
             isWallSliding = true;
             this.animator.SetBool("wallSliding", true);
         } else {
@@ -136,7 +146,7 @@ public class PlayerController3 : MonoBehaviour
         }
 
         //If you press jump it will set the jump buffer counter to the jump buffer time. It will then immeditally start counting down.
-        if (Input.GetButtonDown("Jump")){
+        if (Input.GetButtonDown("Jump") && controlsEnabled){
             jumpBufferCounter = jumpBufferTime;
         } else {
             jumpBufferCounter -= Time.deltaTime;
@@ -145,7 +155,7 @@ public class PlayerController3 : MonoBehaviour
 
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0)){
+        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0) && controlsEnabled){
             //Debug.Log("Attack!");
 
             hitCounter = hitTime;
@@ -178,6 +188,14 @@ public class PlayerController3 : MonoBehaviour
             hitboxCollider.size = new Vector2(0, 0);
             hitboxCollider.offset = new Vector2(0, 0);
         }
+
+        if (iFrameCounter < 0){
+            isInvincible = false;
+            controlsEnabled = true;
+        } else {
+            iFrameCounter -= Time.deltaTime;
+        }
+            
 
         //Animation
         if (this.animator !=null){
@@ -213,7 +231,7 @@ public class PlayerController3 : MonoBehaviour
     private void FixedUpdate() {
 
         //If the player is wallsliding then it will clamp their velocity.
-        if (isWallSliding){
+        if (isWallSliding && controlsEnabled){
             player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
         }
 
@@ -261,10 +279,10 @@ public class PlayerController3 : MonoBehaviour
 
     //run is just the run command. If you have a direction held then you move in that direction. Otherwise you dont.
     private void run(){
-        if (direction != 0f){
+        if (direction != 0f && controlsEnabled){
                 transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
                 player.velocity = new Vector2(direction * walkSpeed, player.velocity.y);
-            } else {
+            } else if (controlsEnabled) {
                 player.velocity = new Vector2(0, player.velocity.y);
             }
     }
@@ -298,10 +316,35 @@ public class PlayerController3 : MonoBehaviour
         else if (other.tag == "RespawnPoint")
         {
             respawnPoint = other.transform;
-        } else if (other.tag == "Enemy")
+        } else if (other.tag == "Enemy" || other.tag == "HitBox")
         {
-            //Code for when hit by an enemy.
-        } else if (other.tag == "meleeItem")
+            if (isInvincible == false){
+                controlsEnabled = false;
+                isInvincible = true;
+                iFrameCounter = iFrameDuration;
+                //Code for when player runs into an enemy.
+                if (other.tag == "HitBox"){
+                    Enemy enemy = other.GetComponentInParent<Enemy>();
+                    takeDamage(enemy.attackDamage);
+                } else {
+                    takeDamage(1);
+                }
+
+                //direciton of the enemy relative to the player.
+                direction = Mathf.Sign(other.transform.position.x - PlayerInfo.pInfo.playerPos.x);
+                Debug.Log("Direction: " + direction);
+                //Sets the player's velocity to zero and then adds a knockback force.
+                //The second addforce is to make sure the player jumps up a bit.
+                player.velocity = new Vector2(0, 0);
+                player.AddForce(new Vector2(-direction*250, 150));
+            } else {
+                Debug.Log("Player is invincible");
+            }
+        } else if (other.tag == "UnlockTrigger")
+        {
+            Destroy(other.transform.parent.gameObject);
+        }
+        else if (other.tag == "meleeItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasMelee = true;
@@ -339,7 +382,7 @@ public class PlayerController3 : MonoBehaviour
     }
 
     private void WallSlide(){
-        if (PlayerInfo.pInfo.hasWallJump && onWall && !onWall && direction!=0){
+        if (PlayerInfo.pInfo.hasWallJump && onWall && !onWall && direction!=0 && controlsEnabled){
             Debug.Log("calling wallSlide");
             isWallSliding = true;
             player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
@@ -357,4 +400,11 @@ public class PlayerController3 : MonoBehaviour
         PlayerInfo.pInfo.playerPos = new Vector2(player.position.x, player.position.y);
     }
 
+
+    private void takeDamage(int damage){
+        health -= damage;
+        if (health <= 0){
+            //Player is dead
+        }
+    }
 }

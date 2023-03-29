@@ -110,6 +110,7 @@ public class Enemy_Controller2 : MonoBehaviour
 
             //attackCounter <0f means the enemy is able to attack (attack is not on cooldown).
             if (attackCounter < 0f){
+                hitboxOff();
                 //This checks if the player is within an attack range of the enemies attack
                 if (Mathf.Abs(PlayerInfo.pInfo.playerPos.x - RB.position.x) <= attackRange)
                 {
@@ -138,7 +139,7 @@ public class Enemy_Controller2 : MonoBehaviour
                 //If the hitbox is enabled then the attack is in progress.
                 //If the hitbox is disabled then the attack either hasn't started.
                 //We want the attack animation to continue and finish if it's active.
-                Debug.Log("Attack in progress");
+                //Debug.Log("Attack in progress");
 
             } else {
                 //If the player can't attack, then it attack is on cooldown.
@@ -233,8 +234,8 @@ public class Enemy_Controller2 : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {    
-        Debug.Log("Other: " + other.tag);
-        Debug.Log("Parent: " + other.transform.parent.tag);
+        //Debug.Log("Other: " + other.tag);
+        //Debug.Log("Parent: " + other.transform.parent.tag);
         if (enemy.isAggro == false && enemy.isReturning == false && other.tag == "EnemyBumper" && enemy.hasReturned == true){
             direction *= -1;
             RB.transform.position += new Vector3(-direction * RB.GetComponent<CapsuleCollider2D>().offset.x + (direction * (RB.GetComponent<CapsuleCollider2D>().size.x)/2), 0f, 0f);
@@ -249,6 +250,7 @@ public class Enemy_Controller2 : MonoBehaviour
         }
         else if (other.tag == "HitBox" && other.transform.parent.tag == "Player"){
             if (isHit == false){
+                hitboxOff();
                 enemy.health -= PlayerInfo.pInfo.attackDamage;
                 hitCounter = hitTime;
                 isHit = true;

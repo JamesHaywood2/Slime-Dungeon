@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public Vector2 hitBoxOffset;
     public Vector2 attackRange;
     public float attackSpeed;
+    public int attackDamage;
 
     [Header("State flags")]
     //If walking then they are walking in direction. If not they are idling.
