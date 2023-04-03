@@ -109,12 +109,23 @@ public class PlayerController3 : MonoBehaviour
             onWall = false;
         }
 
-        //Calls isWalled() to check if the player is up against a wall.
-        //This and isWalled could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
+        //Calls isGrounded() to check if the player is up against a wall.
+        //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
         if (isGrounded()){
             onGround = true;
+
+            this.animator.SetBool("grounded", true);
+
+            coyoteTimeCounter = coyoteTime;
+
+            availableJumps = maxJumps;
+            hasJumped = false;
+
         } else {
             onGround = false;
+
+            this.animator.SetBool("grounded", false);
+            coyoteTimeCounter -= Time.deltaTime;
         }
 
         //If the player is on a wall, in the air, holding a direction, and has the ability unlocked, then it sets isWallSliding indicates to the system that the player is wallSliding.
@@ -126,20 +137,6 @@ public class PlayerController3 : MonoBehaviour
             this.animator.SetBool("wallSliding", false);
         }
         
-        //If the player is on the ground they haven't jumped.
-        if (onGround){
-            this.animator.SetBool("grounded", true);
-
-            coyoteTimeCounter = coyoteTime;
-
-            availableJumps = maxJumps;
-            hasJumped = false;
-
-        } else {
-            this.animator.SetBool("grounded", false);
-            coyoteTimeCounter -= Time.deltaTime;
-        }
-
          //If you are not on the ground and have not jumped then you have walked off a ledge meaning you will have one less jump available.
         if ((coyoteTimeCounter < 0f) && isGrounded() == false && hasJumped == false){
             availableJumps = maxJumps-1;
@@ -152,15 +149,13 @@ public class PlayerController3 : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-
         //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
         //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0) && controlsEnabled){
+        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0) && controlsEnabled)
+        {
             //Debug.Log("Attack!");
-
             hitCounter = hitTime;
             attackCounter = attackCooldown;
-            
             //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
             if (Input.GetKey(KeyCode.UpArrow)){
                 Debug.Log("Attack goes up");
@@ -178,7 +173,6 @@ public class PlayerController3 : MonoBehaviour
                 hitboxCollider.offset = new Vector2(1.3f, 0);
                 this.animator.SetTrigger("Attack_Ground");
             }
-            
         } else {
             hitCounter -= Time.deltaTime;
             attackCounter -= Time.deltaTime;
