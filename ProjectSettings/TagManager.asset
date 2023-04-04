@@ -17,8 +17,6 @@ TagManager:
   - dashItem
   - OneWayDoor
   - Enemy
-  - FOV
-  - AggroRange
   - EnemyBumper
   - EnemyBumperAbs
   - JumpPad
@@ -44,7 +42,7 @@ TagManager:
   - hurtbox
   - hitbox
   - Enemy
-  - Enemy Fields
+  - 
   - Enemy Bumpers
   - DeadEnemy
   - 
