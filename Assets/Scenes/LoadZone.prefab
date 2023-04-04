@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2738238897243707560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.94, y: -0.59, z: 0}
-  m_LocalScale: {x: 10.1418915, y: 26.705511, z: 8.7795}
+  m_LocalScale: {x: 10.975903, y: 26.84634, z: 8.7795}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -122,5 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b39e2ab7555bb45bec79dbd2a977ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination: SampleScene
-  zoneName: 
+  Destination: LoadTest2

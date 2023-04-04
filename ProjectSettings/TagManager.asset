@@ -5,6 +5,24 @@ TagManager:
   serializedVersion: 2
   tags:
   - LoadZone
+  - Terrain
+  - Checkpoint
+  - RespawnPoint
+  - Hazard
+  - BreakableWall
+  - meleeItem
+  - wallBreakItem
+  - doubleJumpItem
+  - wallJumpItem
+  - dashItem
+  - OneWayDoor
+  - Enemy
+  - EnemyBumper
+  - EnemyBumperAbs
+  - JumpPad
+  - HitBox
+  - Hurtbox
+  - UnlockTrigger
   layers:
   - Default
   - TransparentFX
@@ -13,20 +31,20 @@ TagManager:
   - Water
   - UI
   - 
+  - Player
   - 
   - 
+  - Terrain
+  - Hazard
+  - Jump_Wall
   - 
   - 
+  - hurtbox
+  - hitbox
+  - Enemy
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy Bumpers
+  - DeadEnemy
   - 
   - 
   - 
