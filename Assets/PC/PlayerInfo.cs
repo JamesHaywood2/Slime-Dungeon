@@ -21,11 +21,11 @@ public class PlayerInfo : MonoBehaviour
     public int allowedJumps = 1;
     public bool hasWallJump;
     public bool hasMelee;
+    public bool hasWallBreak;
     public bool hasDash;
-    public bool Warp;
+    public bool hasWarp;
     public int attackDamage;
     public float attackForce;
-    public bool hasWallBreak;
 
 
     [Header("Rooms")]

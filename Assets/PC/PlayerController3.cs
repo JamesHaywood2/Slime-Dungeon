@@ -11,9 +11,6 @@ public class PlayerController3 : MonoBehaviour
     Rigidbody2D player;
     private Vector3 scale;
     Animator animator;
-
-    [Header("Misc Player Variables")]
-    public int health;
     
 
     [Header("Movement settings")]
@@ -89,7 +86,6 @@ public class PlayerController3 : MonoBehaviour
         //Stuff from PlayerInfo
         maxJumps = PlayerInfo.pInfo.allowedJumps;
         availableJumps = maxJumps;
-        health = PlayerInfo.pInfo.currentHealth;
         controlsEnabled = true;
     }
 
@@ -320,6 +316,7 @@ public class PlayerController3 : MonoBehaviour
                 if (other.tag == "HitBox"){
                     Enemy enemy = other.GetComponentInParent<Enemy>();
                     takeDamage(enemy.attackDamage);
+                    Debug.Log("Player got hit");
                 } else {
                     takeDamage(1);
                 }
@@ -390,14 +387,14 @@ public class PlayerController3 : MonoBehaviour
 
     //Late update, if I understand it correctly, is called after update is done.
     private void LateUpdate(){
-        PlayerInfo.pInfo.currentHealth = health;
         PlayerInfo.pInfo.playerPos = new Vector2(player.position.x, player.position.y);
     }
 
 
     private void takeDamage(int damage){
-        health -= damage;
-        if (health <= 0){
+        //Updates health variable.
+        PlayerInfo.pInfo.currentHealth -= damage;
+        if (PlayerInfo.pInfo.currentHealth <= 0){
             //Player is dead
         }
     }
