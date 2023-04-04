@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997931099}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27, y: -0.31, z: -8.229025}
+  m_LocalPosition: {x: -0.27, y: -0.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6934084763876777167}
@@ -221,6 +221,7 @@ MonoBehaviour:
   hitBoxOffset: {x: 0.5, y: 0.35}
   attackRange: {x: 0, y: 0}
   attackSpeed: 2
+  attackDamage: 1
   isWalking: 0
   isChilling: 0
   isPatrolling: 0
