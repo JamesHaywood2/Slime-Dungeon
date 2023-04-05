@@ -246,7 +246,7 @@ MonoBehaviour:
   hitTime: 1
   aggroRadius: 5.57
   fovRadius: 18.42
-  attackRange: 1.9
+  attackRange: 2.29
 --- !u!1001 &2291583097025935870
 PrefabInstance:
   m_ObjectHideFlags: 0

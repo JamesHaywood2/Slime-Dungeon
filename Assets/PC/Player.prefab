@@ -764,7 +764,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0db5327ffab19114f8fefb038d98e949, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50f19b3f75f956e4494f208e2bcc5cb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -806,8 +806,8 @@ MonoBehaviour:
   - {fileID: 1659272337446938675}
   - {fileID: 7382159016870897614}
   m_Bounds:
-    m_Center: {x: 0.32168758, y: 0.39167476, z: 0}
-    m_Extent: {x: 1.5531116, y: 3.089219, z: 0}
+    m_Center: {x: 0.32168686, y: 0.39168262, z: 0}
+    m_Extent: {x: 1.5531106, y: 3.0892193, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!70 &211053376160410054
@@ -878,7 +878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c0abdb6c51da0468d98f153064af30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
   walkSpeed: 5
   maxJumps: 2
   jumpForce: 10

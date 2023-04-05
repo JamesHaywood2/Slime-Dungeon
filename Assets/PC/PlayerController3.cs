@@ -19,7 +19,7 @@ public class PlayerController3 : MonoBehaviour
 
     [Header("Jump Variables")]
     public int maxJumps;
-    private int availableJumps;
+    public int availableJumps;
     public float jumpForce = 10f;
     [SerializeField]private float maxFallSpeed = 15f;
     [SerializeField]private float coyoteTime = 0.2f; //Coyote time is what lets the player jump even when they were slightly off the platform.
