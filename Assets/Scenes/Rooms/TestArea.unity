@@ -221,6 +221,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraOffset: 1.5
   player: {fileID: 319828465}
+--- !u!4 &231453737 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 373255325, guid: af936ac7697ff1c4aad048ddd7ff76c7, type: 3}
+  m_PrefabInstance: {fileID: 1236562036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &235490882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5458606250617031769, guid: a8ea8984273ec074293c9619dd8473fe, type: 3}
@@ -236,6 +241,42 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8988764597286232762, guid: af936ac7697ff1c4aad048ddd7ff76c7, type: 3}
   m_PrefabInstance: {fileID: 1236562036}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &319828466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319828465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c0abdb6c51da0468d98f153064af30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  maxJumps: 0
+  jumpCount: 0
+  jumpForce: 10
+  maxFallSpeed: 15
+  coyoteTime: 0.2
+  jumpBufferTime: 0.2
+  wallSlideSpeed: 2
+  wallJumpPower: {x: 6, y: 7}
+  wallJumpDuration: 0.4
+  groundCheck: {fileID: 231453737}
+  groundCheckRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  wallCheck: {fileID: 1853586393}
+  wallCheckRadius: 0.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  hitbox: {fileID: 619582683}
+  hitTime: 0.2
+  attackCooldown: 0.15
+  iFrameDuration: 0.2
 --- !u!1 &411342266
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 092ab15a52bfda547a53f4dffffa72c7, type: 3}
+--- !u!1 &619582683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 538765167, guid: af936ac7697ff1c4aad048ddd7ff76c7, type: 3}
+  m_PrefabInstance: {fileID: 1236562036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &718574007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17229,6 +17275,11 @@ BoxCollider2D:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7385387471706573958, guid: 5bded4dbfdbc3934995540c3e8f64ec7, type: 3}
   m_PrefabInstance: {fileID: 718574007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1853586393 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 742581983, guid: af936ac7697ff1c4aad048ddd7ff76c7, type: 3}
+  m_PrefabInstance: {fileID: 1236562036}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1921080725
 PrefabInstance:
