@@ -880,6 +880,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   maxJumps: 2
+  availableJumps: 0
   jumpForce: 10
   maxFallSpeed: 15
   coyoteTime: 0.2
