@@ -16,6 +16,7 @@ public class PlayerController3 : MonoBehaviour
     [Header("Movement settings")]
     public float walkSpeed = 5f;
     private float direction = 0f;
+    private float facing = 1;
 
     [Header("Jump Variables")]
     public int maxJumps;
@@ -36,9 +37,16 @@ public class PlayerController3 : MonoBehaviour
     private bool isWallSliding;
     private bool isWallJumping;
 
+    [Header("Dash variables")]
+    [SerializeField]private float dashSpeed = 10f;
+    [SerializeField]private float dashTime = 0.2f;
+    [SerializeField]private float dashCooldown = 0.5f;
+    private float dashCounter;
+    private float dashCooldownCounter;
+    private bool isDashing;
+
 
     [Header("Ground checking variables")]
-    
     [SerializeField]private Transform groundCheck;
     [SerializeField]private float groundCheckRadius;
     [SerializeField]private LayerMask groundLayer;
@@ -94,6 +102,9 @@ public class PlayerController3 : MonoBehaviour
         //Check's if the player is entering left or right arrow indicating that they are moving.
         if (controlsEnabled){
             direction = Input.GetAxisRaw("Horizontal");
+            if (direction != 0){
+                facing = direction;
+            }
         } 
 
         //Calls is grounded to check if the player is on the ground.
@@ -177,7 +188,27 @@ public class PlayerController3 : MonoBehaviour
         } else {
             Run();
         }
-            
+
+        //If dash is not on cooldown, controls are enabled, has the dash ability, and they press the C key then they dash.
+        if (dashCooldownCounter < 0 && controlsEnabled && PlayerInfo.pInfo.hasDash && Input.GetKeyDown(KeyCode.C)){
+            isDashing = true;
+            dashCounter = dashTime;
+            controlsEnabled = false;
+        }
+
+        //If the player is dashing then the dash counter is reduced by time.
+        if (isDashing){
+            dashCounter -= Time.deltaTime;
+            player.velocity = new Vector2(dashSpeed * facing, player.velocity.y);
+            if (dashCounter < 0){
+                isDashing = false;
+            }
+        } else {
+            dashCooldownCounter -= Time.deltaTime;
+            controlsEnabled=true;
+        }
+
+
 
         //Animation
         if (this.animator !=null){
@@ -202,8 +233,8 @@ public class PlayerController3 : MonoBehaviour
     //run is just the run command. If you have a direction held then you move in that direction. Otherwise you dont.
     private void Run(){
         if (direction != 0f && controlsEnabled){
-                transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
-                player.velocity = new Vector2(direction * walkSpeed, player.velocity.y);
+                transform.localScale = new Vector3(facing * scale.x, scale.y, scale.z);
+                player.velocity = new Vector2(facing * walkSpeed, player.velocity.y);
             } else if (controlsEnabled) {
                 player.velocity = new Vector2(0, player.velocity.y);
             }
@@ -223,9 +254,9 @@ public class PlayerController3 : MonoBehaviour
         //If the player is wallSliding at the time of the jump, which they can only do if they have the walljump ability, then they walljump.
         if (isWallSliding){
             Debug.Log("Walljump!");
-            direction = -direction;
-            player.velocity = new Vector2(direction * wallJumpPower.x, wallJumpPower.y);
-            transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
+            facing = -direction;
+            player.velocity = new Vector2(facing * wallJumpPower.x, wallJumpPower.y);
+            transform.localScale = new Vector3(facing * scale.x, scale.y, scale.z);
             isWallJumping = true;
             wallJumpCounter = wallJumpDuration;
             
@@ -366,12 +397,12 @@ public class PlayerController3 : MonoBehaviour
                 }
 
                 //direciton of the enemy relative to the player.
-                direction = Mathf.Sign(other.transform.position.x - PlayerInfo.pInfo.playerPos.x);
-                Debug.Log("Direction: " + direction);
+                facing = Mathf.Sign(other.transform.position.x - PlayerInfo.pInfo.playerPos.x);
+                Debug.Log("Direction: " + facing);
                 //Sets the player's velocity to zero and then adds a knockback force.
                 //The second addforce is to make sure the player jumps up a bit.
                 player.velocity = new Vector2(0, 0);
-                player.AddForce(new Vector2(-direction*250, 150));
+                player.AddForce(new Vector2(-facing*250, 150));
             } else {
                 Debug.Log("Player is invincible");
             }

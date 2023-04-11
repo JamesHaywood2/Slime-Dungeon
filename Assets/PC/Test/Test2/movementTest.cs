@@ -185,8 +185,10 @@ public class movementTest : MonoBehaviour
 
 
 
-
-    
+        //Update animator variables
+        if (animator != null){
+            Animate();
+        }
         //Update the direciton the player is facing.
         transform.localScale = new Vector3(scale.x * direction, scale.y, scale.z);
     }
@@ -263,4 +265,58 @@ public class movementTest : MonoBehaviour
         return Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
     }
 
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(wallCheck.position, wallCheckRadius);
+    }
+
+    private void Animate(){
+        if (isSliding){
+            animator.SetBool("isSliding", true);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", false);
+        } else if (isAttacking){
+            animator.SetBool("isSliding", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", false);
+        } else if (isFalling){
+            animator.SetBool("isSliding", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", true);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", false);
+        } else if (isJumping){
+            animator.SetBool("isSliding", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", false);
+        } else if (isRunning){
+            animator.SetFloat("walkSpeed", Mathf.Abs(player.velocity.x)/1.5f);
+
+            animator.SetBool("isSliding", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isIdle", false);
+        } else {
+            animator.SetBool("isSliding", false);
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", true);
+        }
+    }
 }
