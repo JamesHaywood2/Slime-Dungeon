@@ -42,13 +42,12 @@ public class PlayerController3 : MonoBehaviour
     [SerializeField]private Transform groundCheck;
     [SerializeField]private float groundCheckRadius;
     [SerializeField]private LayerMask groundLayer;
-    private bool onGround;
 
     [Header("Wall checking varibales")]
     [SerializeField]private Transform wallCheck;
     [SerializeField]private float wallCheckRadius;
     [SerializeField]private LayerMask wallLayer;
-    private bool onWall;
+
 
 
     [Header("Respawn/Checkpoints")]
@@ -57,12 +56,9 @@ public class PlayerController3 : MonoBehaviour
 
 
     [Header("Hitbox")]
-    public GameObject hitbox;
-    private BoxCollider2D hitboxCollider;
-    [SerializeField]private float hitTime = 0.2f;
-    private float hitCounter;
+    [SerializeField]private BoxCollider2D hitboxCollider;
 
-    [Header("Hit Cooldown")]
+    [Header("attack Cooldown")]
     [SerializeField]private float attackCooldown = 0.15f;
     private float attackCounter;
 
@@ -79,7 +75,10 @@ public class PlayerController3 : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
 
-        hitboxCollider = hitbox.GetComponent<BoxCollider2D>();
+        groundCheck = transform.Find("GroundCheck");
+        wallCheck = transform.Find("WallCheck");
+
+        hitboxCollider = transform.Find("Hitbox").GetComponent<BoxCollider2D>();
 
         this.animator = GetComponent<Animator>();
 
@@ -100,7 +99,6 @@ public class PlayerController3 : MonoBehaviour
         //Calls is grounded to check if the player is on the ground.
         //When on the ground the jump count is set to 0 and the coyote time counter is set to the coyote time.
         if (isGrounded()){
-            onGround = true;
             this.animator.SetBool("grounded", true);
 
             coyoteTimeCounter = coyoteTime;
@@ -111,7 +109,6 @@ public class PlayerController3 : MonoBehaviour
             maxJumps = PlayerInfo.pInfo.allowedJumps;
 
         } else {
-            onGround = false;
             this.animator.SetBool("grounded", false);
             coyoteTimeCounter -= Time.deltaTime;
         }
@@ -119,7 +116,6 @@ public class PlayerController3 : MonoBehaviour
         //Calls isWalled() to check if the player is up against a wall.
         //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
         if (isWalled()){
-            onWall = true;
             //If the player is walled, has the ability, is holding a direction, is not on the ground, and controls are enabled, then the player is wallsiding.
             if (PlayerInfo.pInfo.hasWallJump && direction != 0 && !isGrounded() && controlsEnabled){
                 isWallSliding = true;
@@ -129,7 +125,6 @@ public class PlayerController3 : MonoBehaviour
                 this.animator.SetBool("wallSliding", false);
             }
         } else {
-            onWall = false;
             isWallSliding = false;
         }
 
@@ -158,13 +153,11 @@ public class PlayerController3 : MonoBehaviour
         }
 
 
-        //hitCounter is the amount of time the hitbox is active for.
-        //If it is les than 0 (the time hitboxes are supposed to be active for) then it will disable the hitbox.)
-        //attack counter is the amount of time between attacks.
-        if (hitCounter < 0){
+        //If the attack is not on cooldown (so attackCounter is greater than 0) then you can't make another attack.
+        //Once the attack is off cooldown then it sets the hitbox to Off just in case the hitbox is still on.
+        if (attackCounter < 0){
             hitboxOff();
         } else {
-            hitCounter -= Time.deltaTime;
             attackCounter -= Time.deltaTime;
         }
 
@@ -259,26 +252,37 @@ public class PlayerController3 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && (attackCounter < 0))
         {
             //Debug.Log("Attack!");
-            hitCounter = hitTime;
             attackCounter = attackCooldown;
             //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
             if (Input.GetKey(KeyCode.UpArrow)){
                 Debug.Log("Attack goes up");
-                hitboxCollider.size = new Vector2(3f, 1f);
-                hitboxCollider.offset = new Vector2(0.1f, 1.5f);
+                //AttackUp();
                 this.animator.SetTrigger("Attack_Up");
             } else if (Input.GetKey(KeyCode.DownArrow) && isGrounded()==false){
                 Debug.Log("Attack goes down");
-                hitboxCollider.size = new Vector2(3f, 1.2f);
-                hitboxCollider.offset = new Vector2(0.1f, -1.4f);
+                //AttackDown();
                 this.animator.SetTrigger("Attack_Down");
             } else {
                 Debug.Log("Attack goes forward");
-                hitboxCollider.size = new Vector2(2f, 1.5f);
-                hitboxCollider.offset = new Vector2(1.3f, 0);
+                //AttackForward();
                 this.animator.SetTrigger("Attack_Ground");
             }
         }
+    }
+
+    private void AttackUp(){
+        hitboxCollider.size = new Vector2(3f, 1f);
+        hitboxCollider.offset = new Vector2(0.1f, 1.5f);
+    }
+
+    private void AttackDown(){
+        hitboxCollider.size = new Vector2(3f, 1.2f);
+        hitboxCollider.offset = new Vector2(0.1f, -1.4f);
+    }
+
+    private void AttackForward(){
+        hitboxCollider.size = new Vector2(2f, 1.5f);
+        hitboxCollider.offset = new Vector2(1.3f, 0);
     }
 
     private void hitboxOff(){
@@ -288,22 +292,19 @@ public class PlayerController3 : MonoBehaviour
 
     private void Animate(){
         if (direction !=0 && isGrounded() && (Mathf.Abs(player.velocity.x) > 0.15f)){
-                this.animator.speed = walkSpeed / 2.0f;
+                this.animator.SetFloat("WalkSpeed", Mathf.Abs(player.velocity.x)/2f);
                 this.animator.SetTrigger("Walking");
             }
 
         if (direction == 0 && isGrounded() && (Mathf.Abs(player.velocity.y)<0.15f)){
-            this.animator.speed=1f;
             this.animator.SetTrigger("Idle");
         }
 
         if ((player.velocity.y > 0) && !isGrounded()){
-            this.animator.speed=1f;
             this.animator.SetTrigger("Jumping");
         }
 
         if ((player.velocity.y < 0) && !isGrounded()){
-            this.animator.speed=1f;
             this.animator.SetTrigger("Falling");
         }
 

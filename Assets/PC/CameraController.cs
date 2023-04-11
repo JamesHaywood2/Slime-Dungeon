@@ -6,7 +6,11 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float cameraOffset = 2.0f;
     
-    [SerializeField] public GameObject player;
+    private GameObject player;
+
+    private void Start() {
+        this.player = GameObject.Find("Player");
+    }
 
     // Update is called once per frame
     void Update()
