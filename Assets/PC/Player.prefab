@@ -60,7 +60,7 @@ Transform:
   m_LocalScale: {x: 2.8571427, y: 3.030303, z: 0}
   m_Children: []
   m_Father: {fileID: 1318128542669506125}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &538765169
 BoxCollider2D:
@@ -129,7 +129,7 @@ Transform:
   m_LocalScale: {x: 2.8571427, y: 3.030303, z: 0}
   m_Children: []
   m_Father: {fileID: 1318128542669506125}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1560511021
 GameObject:
@@ -697,7 +697,7 @@ GameObject:
   - component: {fileID: 211053376160410054}
   - component: {fileID: 759176696}
   - component: {fileID: 1182826800}
-  - component: {fileID: 1979595257}
+  - component: {fileID: 319828466}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -718,8 +718,8 @@ Transform:
   m_Children:
   - {fileID: 4652607649193840331}
   - {fileID: 373255325}
-  - {fileID: 538765168}
   - {fileID: 742581983}
+  - {fileID: 538765168}
   - {fileID: 1560511022}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -866,7 +866,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1979595257
+--- !u!114 &319828466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -879,25 +879,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  maxJumps: 2
+  maxJumps: 0
+  jumpCount: 0
   jumpForce: 10
   maxFallSpeed: 15
   coyoteTime: 0.2
   jumpBufferTime: 0.2
   wallSlideSpeed: 2
-  wallJumpPower: {x: 4, y: 4}
+  wallJumpPower: {x: 6, y: 7}
   wallJumpDuration: 0.4
-  groundCheck: {fileID: 373255325}
+  groundCheck: {fileID: 0}
   groundCheckRadius: 0.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  wallCheck: {fileID: 742581983}
+  wallCheck: {fileID: 0}
   wallCheckRadius: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 4096
-  hitbox: {fileID: 538765167}
-  hitTime: 0.2
+  hitboxCollider: {fileID: 0}
   attackCooldown: 0.15
-  iFrameDuration: 1
+  iFrameDuration: 0.2

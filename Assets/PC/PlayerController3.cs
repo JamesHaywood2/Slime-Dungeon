@@ -16,10 +16,11 @@ public class PlayerController3 : MonoBehaviour
     [Header("Movement settings")]
     public float walkSpeed = 5f;
     private float direction = 0f;
+    private float facing = 1;
 
     [Header("Jump Variables")]
     public int maxJumps;
-    public int availableJumps;
+    public int jumpCount;
     public float jumpForce = 10f;
     [SerializeField]private float maxFallSpeed = 15f;
     [SerializeField]private float coyoteTime = 0.2f; //Coyote time is what lets the player jump even when they were slightly off the platform.
@@ -36,19 +37,25 @@ public class PlayerController3 : MonoBehaviour
     private bool isWallSliding;
     private bool isWallJumping;
 
+    [Header("Dash variables")]
+    [SerializeField]private float dashSpeed = 10f;
+    [SerializeField]private float dashTime = 0.2f;
+    [SerializeField]private float dashCooldown = 0.5f;
+    private float dashCounter;
+    private float dashCooldownCounter;
+    private bool isDashing;
+
 
     [Header("Ground checking variables")]
-    
     [SerializeField]private Transform groundCheck;
     [SerializeField]private float groundCheckRadius;
     [SerializeField]private LayerMask groundLayer;
-    private bool onGround;
 
     [Header("Wall checking varibales")]
     [SerializeField]private Transform wallCheck;
     [SerializeField]private float wallCheckRadius;
     [SerializeField]private LayerMask wallLayer;
-    private bool onWall;
+
 
 
     [Header("Respawn/Checkpoints")]
@@ -57,12 +64,9 @@ public class PlayerController3 : MonoBehaviour
 
 
     [Header("Hitbox")]
-    public GameObject hitbox;
-    private BoxCollider2D hitboxCollider;
-    [SerializeField]private float hitTime = 0.2f;
-    private float hitCounter;
+    [SerializeField]private BoxCollider2D hitboxCollider;
 
-    [Header("Hit Cooldown")]
+    [Header("attack Cooldown")]
     [SerializeField]private float attackCooldown = 0.15f;
     private float attackCounter;
 
@@ -79,13 +83,16 @@ public class PlayerController3 : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
 
-        hitboxCollider = hitbox.GetComponent<BoxCollider2D>();
+        groundCheck = transform.Find("GroundCheck");
+        wallCheck = transform.Find("WallCheck");
+
+        hitboxCollider = transform.Find("Hitbox").GetComponent<BoxCollider2D>();
 
         this.animator = GetComponent<Animator>();
 
         //Stuff from PlayerInfo
         maxJumps = PlayerInfo.pInfo.allowedJumps;
-        availableJumps = maxJumps;
+        jumpCount = 0;
         controlsEnabled = true;
     }
 
@@ -93,188 +100,252 @@ public class PlayerController3 : MonoBehaviour
     void Update()
     {
         //Check's if the player is entering left or right arrow indicating that they are moving.
-        if (!isInvincible){
+        if (controlsEnabled){
             direction = Input.GetAxisRaw("Horizontal");
+            if (direction != 0){
+                facing = direction;
+            }
         } 
 
-        //Calls isWalled() to check if the player is up against a wall.
-        //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
-        if (isWalled()){
-            onWall = true;
-        } else {
-            onWall = false;
-        }
-
-        //Calls isGrounded() to check if the player is up against a wall.
-        //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
+        //Calls is grounded to check if the player is on the ground.
+        //When on the ground the jump count is set to 0 and the coyote time counter is set to the coyote time.
         if (isGrounded()){
-            onGround = true;
-
             this.animator.SetBool("grounded", true);
 
             coyoteTimeCounter = coyoteTime;
-
-            availableJumps = maxJumps;
+            jumpCount = 0;
+            //If you're on the ground then you can't have jumped.
             hasJumped = false;
 
-        } else {
-            onGround = false;
+            maxJumps = PlayerInfo.pInfo.allowedJumps;
 
+        } else {
             this.animator.SetBool("grounded", false);
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        //If the player is on a wall, in the air, holding a direction, and has the ability unlocked, then it sets isWallSliding indicates to the system that the player is wallSliding.
-        if (PlayerInfo.pInfo.hasWallJump && onWall && !onGround && direction!=0 && controlsEnabled){
-            isWallSliding = true;
-            this.animator.SetBool("wallSliding", true);
+        //Calls isWalled() to check if the player is up against a wall.
+        //This and isGrounded could be in Update() or FixedUpdate(). I'm not sure which is a better idea.
+        if (isWalled()){
+            //If the player is walled, has the ability, is holding a direction, is not on the ground, and controls are enabled, then the player is wallsiding.
+            if (PlayerInfo.pInfo.hasWallJump && direction != 0 && !isGrounded() && controlsEnabled){
+                isWallSliding = true;
+                this.animator.SetBool("wallSliding", true);
+            } else {
+                isWallSliding = false;
+                this.animator.SetBool("wallSliding", false);
+            }
         } else {
             isWallSliding = false;
-            this.animator.SetBool("wallSliding", false);
-        }
-        
-         //If you are not on the ground and have not jumped then you have walked off a ledge meaning you will have one less jump available.
-        if ((coyoteTimeCounter < 0f) && isGrounded() == false && hasJumped == false){
-            availableJumps = maxJumps-1;
         }
 
-        //If you press jump it will set the jump buffer counter to the jump buffer time. It will then immeditally start counting down.
-        if (Input.GetButtonDown("Jump") && controlsEnabled){
+        //When you press the space bar it will set the jump buffer time.
+        if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled){
             jumpBufferCounter = jumpBufferTime;
         } else {
             jumpBufferCounter -= Time.deltaTime;
         }
+        //Then in fixedUpdate it will check if the jump buffer time is greater than 0. If so you can jump.
+        if (isWallSliding){
+            WallSlide();
+        }
 
-        //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
-        //Actual hits are detected in the HitDetection script of the hitbox object.
-        if (PlayerInfo.pInfo.hasMelee &&Input.GetKeyDown(KeyCode.X) && (attackCounter < 0) && controlsEnabled)
-        {
-            //Debug.Log("Attack!");
-            hitCounter = hitTime;
-            attackCounter = attackCooldown;
-            //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
-            if (Input.GetKey(KeyCode.UpArrow)){
-                Debug.Log("Attack goes up");
-                hitboxCollider.size = new Vector2(3f, 1f);
-                hitboxCollider.offset = new Vector2(0.1f, 1.5f);
-                this.animator.SetTrigger("Attack_Up");
-            } else if (Input.GetKey(KeyCode.DownArrow) && isGrounded()==false){
-                Debug.Log("Attack goes down");
-                hitboxCollider.size = new Vector2(3f, 1.2f);
-                hitboxCollider.offset = new Vector2(0.1f, -1.4f);
-                this.animator.SetTrigger("Attack_Down");
-            } else {
-                Debug.Log("Attack goes forward");
-                hitboxCollider.size = new Vector2(2f, 1.5f);
-                hitboxCollider.offset = new Vector2(1.3f, 0);
-                this.animator.SetTrigger("Attack_Ground");
-            }
+        //If the jumpBufferCounter is greater than 0 and controls are enabled the player will jump.
+        //If the player is wallsliding then they walljump.
+        if (jumpBufferCounter > 0f &&  controlsEnabled){
+            Jump();
+        } 
+
+
+        //Calls Attack() which checks if the player presses the attack button.
+        //Only performs the check if the player's controls are enabled.
+        if (controlsEnabled && PlayerInfo.pInfo.hasMelee){
+            Attack();
+        }
+
+
+        //If the attack is not on cooldown (so attackCounter is greater than 0) then you can't make another attack.
+        //Once the attack is off cooldown then it sets the hitbox to Off just in case the hitbox is still on.
+        if (attackCounter < 0){
+            hitboxOff();
         } else {
-            hitCounter -= Time.deltaTime;
             attackCounter -= Time.deltaTime;
         }
 
-        if (hitCounter < 0){
-            hitboxCollider.size = new Vector2(0, 0);
-            hitboxCollider.offset = new Vector2(0, 0);
-        }
-
+        //iFrame counter is the ammount of time the player is invincible for.
         if (iFrameCounter < 0){
             isInvincible = false;
             controlsEnabled = true;
         } else {
             iFrameCounter -= Time.deltaTime;
         }
-            
+
+        if (isWallJumping && !isGrounded()){
+            wallJumpCounter -= Time.deltaTime;
+            if (wallJumpCounter < 0f){
+                isWallJumping = false;
+            }
+        } else {
+            Run();
+        }
+
+        //If dash is not on cooldown, controls are enabled, has the dash ability, and they press the C key then they dash.
+        if (dashCooldownCounter < 0 && controlsEnabled && PlayerInfo.pInfo.hasDash && Input.GetKeyDown(KeyCode.C)){
+            isDashing = true;
+            dashCounter = dashTime;
+            controlsEnabled = false;
+        }
+
+        //If the player is dashing then the dash counter is reduced by time.
+        if (isDashing){
+            dashCounter -= Time.deltaTime;
+            player.velocity = new Vector2(dashSpeed * facing, player.velocity.y);
+            if (dashCounter < 0){
+                isDashing = false;
+            }
+        } else {
+            dashCooldownCounter -= Time.deltaTime;
+            controlsEnabled=true;
+        }
+
+
 
         //Animation
         if (this.animator !=null){
-            if (direction !=0 && onGround && (Mathf.Abs(player.velocity.x) > 0.15f)){
-                this.animator.speed = walkSpeed / 2.0f;
-                this.animator.SetTrigger("Walking");
-            }
-
-            if (direction == 0 && onGround && (Mathf.Abs(player.velocity.y)<0.15f)){
-                this.animator.speed=1f;
-                this.animator.SetTrigger("Idle");
-            }
-
-            if ((player.velocity.y > 0) && !onGround){
-                this.animator.speed=1f;
-                this.animator.SetTrigger("Jumping");
-            }
-
-            if ((player.velocity.y < 0) && !onGround){
-                this.animator.speed=1f;
-                this.animator.SetTrigger("Falling");
-            }
-
-            if ((player.velocity.y < 0) && !onGround && isWallSliding){
-                this.animator.SetBool("wallSliding", true);
-            } else {
-                this.animator.SetBool("wallSliding", false);
-            }
+            Animate();
         }
-
     }
 
     private void FixedUpdate() {
 
-        //If the player is wallsliding then it will clamp their velocity.
-        if (isWallSliding && controlsEnabled){
-            player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
-        }
-
         //This makes it so the player falls faster the longer they're in the air, up to a certain speed.
-        if (player.velocity.y < 0 && !onGround && !isWallSliding){
+        if (player.velocity.y < 0 && !isGrounded() && !isWallSliding){
             player.gravityScale = player.gravityScale * 1.005f;
         } else {
             player.gravityScale = 1;
         }
         player.velocity = new Vector2(player.velocity.x, Mathf.Max(player.velocity.y, -maxFallSpeed));
 
-        //If jumpBufferCounter is greater than 0, which it will be the frame you press space, and you have available jumps you then jump.
-        //Additionally is you are sliding on a wall, and jumpBuffer>0 then you have wall jumped.
-        if ((isWallSliding) && (jumpBufferCounter > 0f)){
-            jumpBufferCounter = 0f;
-            coyoteTimeCounter = 0f;
-            hasJumped = true;
-
-            isWallJumping = true;
-            wallJumpCounter = wallJumpDuration;
-            player.velocity = new Vector2(-direction * wallJumpPower.x, wallJumpPower.y);
-        } 
-        else if ((jumpBufferCounter > 0f) && availableJumps > 0){
-            player.velocity = new Vector2(player.velocity.x, jumpForce);
-            availableJumps--;
-            hasJumped = true;
-
-            jumpBufferCounter = 0f;
-            coyoteTimeCounter = 0f;
-        } 
-
-        //Above there is a section that determines if you have wall jumped.
-        //For the duration of the wall jump you don't actually have control over your character.
-        //If you're in the wall jump then you have control like normal.
-        if (isWallJumping && !onGround){
-            wallJumpCounter -= Time.deltaTime;
-            if (wallJumpCounter < 0f){
-                isWallJumping = false;
-            }
-        } else {
-            run();
-        }
+        
 
     }
 
     //run is just the run command. If you have a direction held then you move in that direction. Otherwise you dont.
-    private void run(){
+    private void Run(){
         if (direction != 0f && controlsEnabled){
-                transform.localScale = new Vector3(direction * scale.x, scale.y, scale.z);
-                player.velocity = new Vector2(direction * walkSpeed, player.velocity.y);
+                transform.localScale = new Vector3(facing * scale.x, scale.y, scale.z);
+                player.velocity = new Vector2(facing * walkSpeed, player.velocity.y);
             } else if (controlsEnabled) {
                 player.velocity = new Vector2(0, player.velocity.y);
             }
+    }
+
+    private void Jump(){
+        //Jump is called in fixed update only if the jumpBufferCounter is greater than 0.
+        jumpBufferCounter=0;
+        coyoteTimeCounter=0;
+
+        //If you haven't jumped, but aren't on the ground, and you aren't wall sliding, then you can jump one less time.
+        if (hasJumped == false && isGrounded() == false && isWallSliding == false){
+            maxJumps--;
+        }
+
+
+        //If the player is wallSliding at the time of the jump, which they can only do if they have the walljump ability, then they walljump.
+        if (isWallSliding){
+            Debug.Log("Walljump!");
+            facing = -direction;
+            player.velocity = new Vector2(facing * wallJumpPower.x, wallJumpPower.y);
+            transform.localScale = new Vector3(facing * scale.x, scale.y, scale.z);
+            isWallJumping = true;
+            wallJumpCounter = wallJumpDuration;
+            
+            hasJumped = true;
+        } else if ( (jumpCount < maxJumps) ){
+            Debug.Log("Jump!");
+            //If the player is not wallsliding, then they jump normally.
+            player.velocity = new Vector2(player.velocity.x, jumpForce);
+            jumpCount++;
+
+            hasJumped = true;
+        }
+
+    }
+
+    private void WallSlide(){
+        player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
+    }
+
+
+    private void Attack(){
+        //If you press the attack key, it will resize a little hitbox to be big, then thens shrink it after a certain time.
+        //Actual hits are detected in the HitDetection script of the hitbox object.
+        if (Input.GetKeyDown(KeyCode.X) && (attackCounter < 0))
+        {
+            //Debug.Log("Attack!");
+            attackCounter = attackCooldown;
+            //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
+            if (Input.GetKey(KeyCode.UpArrow)){
+                Debug.Log("Attack goes up");
+                //AttackUp();
+                this.animator.SetTrigger("Attack_Up");
+            } else if (Input.GetKey(KeyCode.DownArrow) && isGrounded()==false){
+                Debug.Log("Attack goes down");
+                //AttackDown();
+                this.animator.SetTrigger("Attack_Down");
+            } else {
+                Debug.Log("Attack goes forward");
+                //AttackForward();
+                this.animator.SetTrigger("Attack_Ground");
+            }
+        }
+    }
+
+    private void AttackUp(){
+        hitboxCollider.size = new Vector2(3f, 1f);
+        hitboxCollider.offset = new Vector2(0.1f, 1.5f);
+    }
+
+    private void AttackDown(){
+        hitboxCollider.size = new Vector2(3f, 1.2f);
+        hitboxCollider.offset = new Vector2(0.1f, -1.4f);
+    }
+
+    private void AttackForward(){
+        hitboxCollider.size = new Vector2(2f, 1.5f);
+        hitboxCollider.offset = new Vector2(1.3f, 0);
+    }
+
+    private void hitboxOff(){
+        hitboxCollider.size = new Vector2(0, 0);
+        hitboxCollider.offset = new Vector2(0, 0);
+    }
+
+    private void Animate(){
+        if (direction !=0 && isGrounded() && (Mathf.Abs(player.velocity.x) > 0.15f)){
+                this.animator.SetFloat("WalkSpeed", Mathf.Abs(player.velocity.x)/2f);
+                this.animator.SetTrigger("Walking");
+            }
+
+        if (direction == 0 && isGrounded() && (Mathf.Abs(player.velocity.y)<0.15f)){
+            this.animator.SetTrigger("Idle");
+        }
+
+        if ((player.velocity.y > 0) && !isGrounded()){
+            this.animator.SetTrigger("Jumping");
+        }
+
+        if ((player.velocity.y < 0) && !isGrounded()){
+            this.animator.SetTrigger("Falling");
+        }
+
+        if ((player.velocity.y < 0) && !isGrounded() && isWallSliding){
+            this.animator.SetBool("wallSliding", true);
+        } else {
+            this.animator.SetBool("wallSliding", false);
+        }
+
+        //Add a damage animation here.
     }
 
 
@@ -306,7 +377,11 @@ public class PlayerController3 : MonoBehaviour
         else if (other.tag == "RespawnPoint")
         {
             respawnPoint = other.transform;
-        } else if (other.tag == "Enemy" || other.tag == "HitBox")
+        } 
+        //If the player's hurtbox collides with the enemy's main collider, or the enemy's hitbox, then the player takes damage.
+        //It will check if the player is invincible (invincible meaning they have taken damage recently).
+        //If they are not invincible then it disables controls, sets the player to invincible, and then starts the invincibility timer.
+        else if (other.tag == "Enemy" || other.tag == "HitBox") 
         {
             if (isInvincible == false){
                 controlsEnabled = false;
@@ -322,16 +397,16 @@ public class PlayerController3 : MonoBehaviour
                 }
 
                 //direciton of the enemy relative to the player.
-                direction = Mathf.Sign(other.transform.position.x - PlayerInfo.pInfo.playerPos.x);
-                Debug.Log("Direction: " + direction);
+                facing = Mathf.Sign(other.transform.position.x - PlayerInfo.pInfo.playerPos.x);
+                Debug.Log("Direction: " + facing);
                 //Sets the player's velocity to zero and then adds a knockback force.
                 //The second addforce is to make sure the player jumps up a bit.
                 player.velocity = new Vector2(0, 0);
-                player.AddForce(new Vector2(-direction*250, 150));
+                player.AddForce(new Vector2(-facing*250, 150));
             } else {
                 Debug.Log("Player is invincible");
             }
-        } else if (other.tag == "UnlockTrigger")
+        } else if (other.tag == "UnlockTrigger") //If the player touches a one way door (which has the unlock trigger tag) delete the door.
         {
             Destroy(other.transform.parent.gameObject);
         }
@@ -359,29 +434,12 @@ public class PlayerController3 : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-
-    }
-
-
     private bool isGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
     private bool isWalled(){
         return Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, wallLayer);
-    }
-
-    private void WallSlide(){
-        if (PlayerInfo.pInfo.hasWallJump && onWall && !onWall && direction!=0 && controlsEnabled){
-            Debug.Log("calling wallSlide");
-            isWallSliding = true;
-            player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
-            this.animator.SetBool("wallSliding", true);
-        } else {
-            isWallSliding = false;
-            this.animator.SetBool("wallSliding", false);
-        }
     }
     
 

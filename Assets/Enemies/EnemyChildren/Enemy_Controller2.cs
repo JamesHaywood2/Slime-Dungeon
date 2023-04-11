@@ -8,7 +8,8 @@ public class Enemy_Controller2 : MonoBehaviour
     private Vector3 scale;
     private Animator animator;
     private Enemy enemy;
-    [SerializeField]private BoxCollider2D hitboxCollider;
+    private BoxCollider2D hitboxCollider;
+    private BoxCollider2D hurtboxCollider;
     private int direction = 1;
 
     private bool isDead;
@@ -43,7 +44,10 @@ public class Enemy_Controller2 : MonoBehaviour
         enemy.returnSpot = RB.transform.position;
         enemy.hasReturned = true;
 
+
+        hitboxCollider = transform.Find("Hitbox").GetComponent<BoxCollider2D>();
         hitboxCollider.enabled = false;
+        hurtboxCollider = transform.Find("Hurtbox").GetComponent<BoxCollider2D>();
 
 
         chillCounter = chillTime;
@@ -195,12 +199,15 @@ public class Enemy_Controller2 : MonoBehaviour
             enemy.isWalking = false;
             enemy.moveSpeed = 0f;
             hitboxCollider.enabled = false;
+            hurtboxCollider.enabled = false;
         }
 
         if (enemy.health <= 0){
                 animator.SetTrigger("Killed");
                 animator.SetBool("Dead", true);
                 isDead = true;
+                hitboxCollider.enabled = false;
+                
 
                 if (enemy.type == Enemy.EnemyType.Skeleton 
                 || enemy.type == Enemy.EnemyType.Goblin
