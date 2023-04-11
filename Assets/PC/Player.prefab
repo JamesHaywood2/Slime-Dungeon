@@ -806,8 +806,8 @@ MonoBehaviour:
   - {fileID: 1659272337446938675}
   - {fileID: 7382159016870897614}
   m_Bounds:
-    m_Center: {x: 0.32168686, y: 0.39168262, z: 0}
-    m_Extent: {x: 1.5531106, y: 3.0892193, z: 0}
+    m_Center: {x: 0.32168484, y: 0.391675, z: 0}
+    m_Extent: {x: 1.5531105, y: 3.0892193, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!70 &211053376160410054
@@ -888,6 +888,9 @@ MonoBehaviour:
   wallSlideSpeed: 2
   wallJumpPower: {x: 6, y: 7}
   wallJumpDuration: 0.4
+  dashSpeed: 25
+  dashTime: 0.15
+  dashCooldown: 1
   groundCheck: {fileID: 0}
   groundCheckRadius: 0.15
   groundLayer:
