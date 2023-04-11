@@ -109,13 +109,14 @@ public class movementTest : MonoBehaviour
         isGrounded = IsGrounded();
         isWalled = IsWalled();
 
-        //If the player is grounded, reset jump count and coyote time.
+        //If the player is grounded, then they cannot be jumping, falling, or sliding.
         if (isGrounded){
             jumpCount = 0;
             isJumping = false;
+            isFalling = false;
             coyoteTimeCounter = coyoteTime;
         } else {
-            //If the player is not grounded, and they velocity is negative, then they are falling.
+            //If the player is not grounded then they have either jumped or are falling.
             if (player.velocity.y <0f){
                 isFalling = true;
             } else {
@@ -148,9 +149,17 @@ public class movementTest : MonoBehaviour
                 isRunning = true;
                 walkDirection = Input.GetAxisRaw("Horizontal");
                 direction = walkDirection;
+
+                //If the player has the ability to wall jump, and they are walled, then they are sliding.
+                if (isWalled && isFalling){
+                    isSliding = true;
+                } else {
+                    isSliding = false;
+                }
             }
             else{
                 isRunning = false;
+                isSliding = false;
                 walkDirection = 0f;
             }
 
@@ -171,6 +180,7 @@ public class movementTest : MonoBehaviour
             isRunning = false;
             isJumping = false;
             isAttacking = false;
+            isSliding = false;
         }
 
 
@@ -182,9 +192,16 @@ public class movementTest : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        //Handles run/horizontal movement.
         if (controlsEnabled){
             Run();
         }
+
+        //If the player is wallSliding, then call wallslide function.
+        if (isSliding){
+            WallSlide();
+        }
+        
     }
 
     private void Run(){
@@ -215,6 +232,9 @@ public class movementTest : MonoBehaviour
         }
     }
 
+    private void WallSlide(){
+        player.velocity = new Vector2(player.velocity.x, Mathf.Clamp(player.velocity.y, -wallSlideSpeed, float.MaxValue));
+    }
     private void WallJump(){
 
     }
