@@ -29,9 +29,9 @@ public class UIController : MonoBehaviour
     public VisualElement pauseMenu;
 
     //HPBAR
-    public static VisualElement hpBar;
-    public static Label hpLabel;
-    private static float hpBarCurrentWidth;
+    public VisualElement hpBar;
+    public Label hpLabel;
+    private float hpBarCurrentWidth;
 
     //Dev Menu
     public VisualElement devMenu;
@@ -42,12 +42,14 @@ public class UIController : MonoBehaviour
     public Toggle warpToggle;
     public Toggle meleeToggle;
 
+    VisualElement root;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //Assigns the UI document the script is attached to to root.
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         activeMenu = MenuState.none;
 
@@ -112,43 +114,43 @@ public class UIController : MonoBehaviour
     }
 
 
-    public static void updateHealthBar(){
+    public void updateHealthBar(){
         hpBarCurrentWidth =((float)PlayerInfo.pInfo.currentHealth / (float)PlayerInfo.pInfo.maxHealth) * 100;
-        hpBar.style.width = Length.Percent(hpBarCurrentWidth);
-        hpLabel.text = "HP: " + PlayerInfo.pInfo.currentHealth + "/" + PlayerInfo.pInfo.maxHealth;
+        root.Q<VisualElement>("hpFill").style.width = Length.Percent(hpBarCurrentWidth);
+        root.Q<Label>("hpExact").text = "HP: " + PlayerInfo.pInfo.currentHealth + "/" + PlayerInfo.pInfo.maxHealth;
     }
 
-    void updateMenu(){
+    public void updateMenu(){
         switch (activeMenu){
             case MenuState.none:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
                 //mainMenu.style.display = DisplayStyle.None;
-                devMenu.style.display = DisplayStyle.None;
+                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.PauseMenu:
                 pauseMenu.style.display = DisplayStyle.Flex;
                 //settingsMenu.style.display = DisplayStyle.None;
                 //mainMenu.style.display = DisplayStyle.None;
-                devMenu.style.display = DisplayStyle.None;
+                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.SettingsMenu:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.Flex;
                 //mainMenu.style.display = DisplayStyle.None;
-                devMenu.style.display = DisplayStyle.None;
+                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.MainMenu:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
                 //mainMenu.style.display = DisplayStyle.Flex;
-                devMenu.style.display = DisplayStyle.None;
+                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.devMenu:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
                 //mainMenu.style.display = DisplayStyle.None;
-                devMenu.style.display = DisplayStyle.Flex;
+                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.Flex;
                 break;
         }
     }
