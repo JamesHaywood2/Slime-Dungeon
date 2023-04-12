@@ -202,6 +202,7 @@ public class PlayerController3 : MonoBehaviour
             player.velocity = new Vector2(dashSpeed * facing, player.velocity.y);
             if (dashCounter < 0){
                 isDashing = false;
+                dashCooldownCounter = dashCooldown;
             }
         } else {
             dashCooldownCounter -= Time.deltaTime;
