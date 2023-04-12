@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 191578353}
   - component: {fileID: 191578352}
   - component: {fileID: 191578351}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap
   m_TagString: Terrain
   m_Icon: {fileID: 0}
@@ -11415,7 +11415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
-  player: {fileID: 1247925042}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
