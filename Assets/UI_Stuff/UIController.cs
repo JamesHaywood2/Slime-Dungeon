@@ -10,7 +10,6 @@ public class UIController : MonoBehaviour
 
     public enum MenuState
     {
-        MainMenu,
         SettingsMenu,
         PauseMenu,
         devMenu,
@@ -125,31 +124,21 @@ public class UIController : MonoBehaviour
             case MenuState.none:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
-                //mainMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.PauseMenu:
                 pauseMenu.style.display = DisplayStyle.Flex;
                 //settingsMenu.style.display = DisplayStyle.None;
-                //mainMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.SettingsMenu:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.Flex;
-                //mainMenu.style.display = DisplayStyle.None;
-                root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
-                break;
-            case MenuState.MainMenu:
-                pauseMenu.style.display = DisplayStyle.None;
-                //settingsMenu.style.display = DisplayStyle.None;
-                //mainMenu.style.display = DisplayStyle.Flex;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.devMenu:
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
-                //mainMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.Flex;
                 break;
         }
@@ -168,6 +157,7 @@ public class UIController : MonoBehaviour
 
     void MenuButtonPressed(){
         Debug.Log("Menu button pressed.");
+        SceneManager.LoadScene("TitleScreen");
     }
 
     void SecretButtonPressed(){
