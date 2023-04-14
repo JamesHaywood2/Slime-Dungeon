@@ -26935,11 +26935,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 963375715, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.17
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 963375715, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.04
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_RootOrder
@@ -26947,11 +26947,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06
+      value: 58.37
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.37
+      value: 21.59
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -27072,9 +27072,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 953612069, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
+      propertyPath: Destination
+      value: Room_Melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.351
+      objectReference: {fileID: 0}
     - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.081
+      value: -0.042
       objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707560, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_Name

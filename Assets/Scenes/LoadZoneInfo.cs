@@ -7,4 +7,5 @@ public class LoadZoneInfo : MonoBehaviour
 {
     
     public string Destination;
+    GameObject loadFromPoint;
 }

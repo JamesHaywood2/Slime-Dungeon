@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b39e2ab7555bb45bec79dbd2a977ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination: LoadTest2
+  Destination: Room_2
 --- !u!1 &8735393375829683358
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,8 +133,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668871973078298999}
+  - component: {fileID: 1787836989}
   m_Layer: 0
-  m_Name: load_from_Room_Name
+  m_Name: load_from_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,3 +155,15 @@ Transform:
   m_Father: {fileID: 2738238897243707566}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1787836989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8735393375829683358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b50c2f60b12751429d0b758667ef1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
