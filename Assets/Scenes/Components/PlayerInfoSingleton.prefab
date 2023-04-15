@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89afc3a9b0c17b14f993f722d82b73d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeMenu: 0
   isPaused: 0
 --- !u!1 &3577794599297263690
 GameObject:
@@ -111,11 +112,11 @@ MonoBehaviour:
   allowedJumps: 3
   hasWallJump: 1
   hasMelee: 1
+  hasWallBreak: 1
   hasDash: 1
-  Warp: 0
+  hasWarp: 0
   attackDamage: 1
   attackForce: 50
-  hasWallBreak: 1
   lastRoom: 
   currentRoom: 
   room_Start: 0

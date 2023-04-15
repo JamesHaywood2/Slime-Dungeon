@@ -28,6 +28,8 @@ public class PlayerInfo : MonoBehaviour
     public float attackForce;
 
 
+    public Hashtable oneWayDoors;
+
     [Header("Rooms")]
     public string lastRoom;
     public string currentRoom;
@@ -45,12 +47,15 @@ public class PlayerInfo : MonoBehaviour
 
     private void Awake(){
         
+        
         if (pInfo !=null){
             Destroy(gameObject);
             return;
         }
         pInfo = this;
         DontDestroyOnLoad(gameObject);
+        oneWayDoors = new Hashtable();
+        oneWayDoors.Add("test", false);
 
     }
 

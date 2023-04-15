@@ -80,6 +80,9 @@ public class PlayerController3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        PlayerInfo.pInfo.currentRoom = currentScene.name;
+        
         player = GetComponent<Rigidbody2D>();
         scale = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
 
@@ -409,6 +412,8 @@ public class PlayerController3 : MonoBehaviour
             }
         } else if (other.tag == "UnlockTrigger") //If the player touches a one way door (which has the unlock trigger tag) delete the door.
         {
+            string doorName = PlayerInfo.pInfo.currentRoom + "*"+ other.transform.parent.name;
+            PlayerInfo.pInfo.oneWayDoors.Add(doorName, true);
             Destroy(other.transform.parent.gameObject);
         }
         else if (other.tag == "meleeItem")

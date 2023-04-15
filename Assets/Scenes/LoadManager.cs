@@ -13,6 +13,8 @@ public class LoadManager : MonoBehaviour
 
     private GameObject player;
 
+
+
     // Start is called before the first frame update
     void Start(){
           GameObject loadSpot = GameObject.Find("load_from_" + PlayerInfo.pInfo.lastRoom);
@@ -24,5 +26,18 @@ public class LoadManager : MonoBehaviour
                loadSpot = GameObject.Find("load_from_Default");
                player.transform.position = new Vector3(loadSpot.transform.position.x, loadSpot.transform.position.y, transform.position.z);
           }
+
+          //Unload those oneway doors that have been used.
+          foreach (DictionaryEntry entry in PlayerInfo.pInfo.oneWayDoors){
+               if (entry.Value.Equals(true)){
+                    //The key is in the format of name of the current room from PlayerInfo and name of the door. So we need to split it up.
+                    string doorName = entry.Key.ToString().Split('*')[1];
+                    Debug.Log(doorName);
+                    //Now we have the name of the current room and the name of the door. We can use this to find the door in the scene.
+                    GameObject door = GameObject.Find(doorName);
+                    Destroy(door);
+               }
+          }
+
      }
 }

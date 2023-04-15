@@ -21244,7 +21244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1029985257783694066, guid: 4702600caa40fa949902aef7ce135a61, type: 3}
       propertyPath: m_Name
-      value: Zone
+      value: ElevatorTop
       objectReference: {fileID: 0}
     - target: {fileID: 1029985257783694066, guid: 4702600caa40fa949902aef7ce135a61, type: 3}
       propertyPath: m_TagString
@@ -21347,6 +21347,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 953612069, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
+      propertyPath: Destination
+      value: Room_3
+      objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707560, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_Name
       value: LoadZone
@@ -21397,36 +21401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
---- !u!1 &1717660251
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1717660252}
-  m_Layer: 0
-  m_Name: load_from_Default
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1717660252
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717660251}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.83, y: -7.49, z: -144.49992}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1792484069
 GameObject:
   m_ObjectHideFlags: 0
@@ -21507,7 +21481,7 @@ Transform:
   m_LocalScale: {x: 5.4057913, y: 45.25491, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1001 &2455430771393900419
 PrefabInstance:

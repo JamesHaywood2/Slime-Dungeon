@@ -86,6 +86,13 @@ public class UIController : MonoBehaviour
         teleportDestination = root.Q<TextField>("tpDestinationField");
         teleportButton = root.Q<Button>("teleportButton");
 
+        wallJumpToggle.value = PlayerInfo.pInfo.hasWallJump;
+        wallBreakToggle.value = PlayerInfo.pInfo.hasWallBreak;
+        dashToggle.value = PlayerInfo.pInfo.hasDash;
+        warpToggle.value = PlayerInfo.pInfo.hasWarp;
+        meleeToggle.value = PlayerInfo.pInfo.hasMelee;
+        
+
         healButton.clicked += HealButtonPressed;
         wallJumpToggle.RegisterValueChangedCallback(WallJumpTogglePressed);
         wallBreakToggle.RegisterValueChangedCallback(WallBreakTogglePressed);
