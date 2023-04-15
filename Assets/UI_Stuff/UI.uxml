@@ -56,7 +56,7 @@
                 <ui:Label text="Dash unlocked:  " display-tooltip-when-elided="true" name="dashLabel" style="font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
                 <ui:Toggle name="dashToggle" focusable="false" style="justify-content: center; align-items: center; width: auto;" />
             </ui:VisualElement>
-            <ui:VisualElement name="teleport" style="flex-direction: row; font-size: 16px; align-items: center; width: 759px; display: none;">
+            <ui:VisualElement name="teleport" style="flex-direction: row; font-size: 16px; align-items: center; width: 759px; display: flex;">
                 <ui:Label text="Enter destination:" display-tooltip-when-elided="true" name="tpLabel" style="font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 50px;" />
                 <ui:TextField picking-mode="Ignore" password="false" name="tpDestinationField" style="width: 233px; height: 39px; -unity-background-image-tint-color: rgb(255, 0, 0); background-color: rgba(0, 0, 0, 0); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
                 <ui:Button text="Teleport!!" display-tooltip-when-elided="true" name="teleportButton" class="buttonStyle" style="font-size: 32px; left: 17px; height: 59px; width: 171px;" />

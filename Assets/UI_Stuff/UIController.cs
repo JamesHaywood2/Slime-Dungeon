@@ -40,6 +40,8 @@ public class UIController : MonoBehaviour
     public Toggle dashToggle;
     public Toggle warpToggle;
     public Toggle meleeToggle;
+    public TextField teleportDestination;
+    public Button teleportButton;
 
     VisualElement root;
 
@@ -81,6 +83,8 @@ public class UIController : MonoBehaviour
         dashToggle = root.Q<Toggle>("dashToggle");
         warpToggle = root.Q<Toggle>("warpToggle");
         meleeToggle = root.Q<Toggle>("meleeToggle");
+        teleportDestination = root.Q<TextField>("tpDestinationField");
+        teleportButton = root.Q<Button>("teleportButton");
 
         healButton.clicked += HealButtonPressed;
         wallJumpToggle.RegisterValueChangedCallback(WallJumpTogglePressed);
@@ -88,6 +92,7 @@ public class UIController : MonoBehaviour
         dashToggle.RegisterValueChangedCallback(DashTogglePressed);
         warpToggle.RegisterValueChangedCallback(WarpTogglePressed);
         meleeToggle.RegisterValueChangedCallback(MeleeTogglePressed);
+        teleportButton.clicked += TeleportButtonPressed;
     }
 
     private void Update() {
@@ -140,6 +145,7 @@ public class UIController : MonoBehaviour
                 pauseMenu.style.display = DisplayStyle.None;
                 //settingsMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.Flex;
+                teleportDestination = root.Q<TextField>("tpDestinationField");
                 break;
         }
     }
@@ -194,6 +200,10 @@ public class UIController : MonoBehaviour
         PlayerInfo.pInfo.hasMelee = evt.newValue;
     }
 
+    void TeleportButtonPressed(){
+        Debug.Log("Teleporting to " + teleportDestination.text);
+        SceneManager.LoadScene(teleportDestination.text);
+    }
 
 
 
