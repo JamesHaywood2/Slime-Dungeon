@@ -64,7 +64,7 @@ public class PlayerController3 : MonoBehaviour
 
 
     [Header("Hitbox")]
-    [SerializeField]private BoxCollider2D hitboxCollider;
+    public BoxCollider2D hitboxCollider;
 
     [Header("attack Cooldown")]
     [SerializeField]private float attackCooldown = 0.15f;
