@@ -12,7 +12,7 @@ public class Enemy_Controller2 : MonoBehaviour
     private BoxCollider2D hurtboxCollider;
     private int direction = 1;
 
-    private bool isDead;
+    public bool isDead;
 
     [SerializeField]private float chillTime = 1f;
     private float chillCounter;

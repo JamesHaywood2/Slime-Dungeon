@@ -15,26 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Rooms/Room_1.unity
     guid: e57b4764d104f4a44b667540935b7b98
   - enabled: 1
-    path: Assets/Scenes/Rooms/DevRooms/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Rooms/DevRooms/LoadTest1.unity
-    guid: 022beefccf29a8c4cb02740044b21e8b
-  - enabled: 1
-    path: Assets/Scenes/Rooms/DevRooms/LoadTest2.unity
-    guid: 64c51bf49c684c84faa82871f11edee7
-  - enabled: 1
-    path: Assets/Scenes/Rooms/DevRooms/TestArea.unity
-    guid: 8fab43f370ef5834398d39dcfbc244d9
-  - enabled: 1
     path: Assets/Scenes/Rooms/Room_2.unity
     guid: 9d9e22ed7c3796348bbffe4a963fb03b
   - enabled: 1
     path: Assets/Scenes/Rooms/Room_3.unity
     guid: 4864bd9a23be4d744b350ad887b08df7
-  - enabled: 1
-    path: Assets/Scenes/Rooms/ItemRooms/Room_MeleeUpgrade.unity
-    guid: ba139610824ec8644bcc296d34e8f304
   - enabled: 1
     path: Assets/Scenes/Rooms/Room_4.unity
     guid: 5f826550f5969a94f9939635dbaba55f
@@ -66,6 +51,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Rooms/Room_13.unity
     guid: 8e312f4973079144db00c51f4d3b701b
   - enabled: 1
+    path: Assets/Scenes/Rooms/Room_Hard_1.unity
+    guid: 39f75fa347dc0e24faae58f46337c883
+  - enabled: 1
     path: Assets/Scenes/Rooms/Room_14.unity
     guid: c1b288478bee95f43bd2508328e17721
   - enabled: 1
@@ -74,6 +62,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rooms/Room_16.unity
     guid: 5e7f6d5340bc6c04e8e79524522e4ab7
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Room_Hard_2.unity
+    guid: a0b2b5ee12fac2042b54fa10c420dadd
   - enabled: 1
     path: Assets/Scenes/Rooms/Room_17.unity
     guid: a6bc7dfa415f66243a814f1d78ab102f
@@ -84,6 +75,93 @@ EditorBuildSettings:
     path: Assets/Scenes/Rooms/Room_19.unity
     guid: 0f314305608e2c542bde71f8b05962dd
   - enabled: 1
+    path: Assets/Scenes/Rooms/Room_20.unity
+    guid: ad8dad1561d11fc418ff3c32413f59c2
+  - enabled: 1
     path: Assets/Scenes/Rooms/Room_21.unity
     guid: 11ccc87413cc5c74e9e7d3594f310979
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_Cannon.unity
+    guid: 733cb251c552126498db2b755292b673
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_Dash.unity
+    guid: f8d0f23dec67ecc4fba935fa7ce130b1
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_DoubleJump.unity
+    guid: eb2c34217eac86140ac519e63000b019
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_Melee.unity
+    guid: aa79bc690820d8345be55134166dff32
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_MeleeUpgrade.unity
+    guid: ba139610824ec8644bcc296d34e8f304
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_WallBreak.unity
+    guid: cd56ab44fb7aaa14f8f9dc8ae6dba8e4
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_WallJump.unity
+    guid: 55566b725db14f242b4fb4b08b5af3f3
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ItemRooms/Room_Warp.unity
+    guid: 91c6d5e53a8fdd346ad6b333ee6b668c
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_1_1.unity
+    guid: 634366ea6998ee44c887c5371f257dcd
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_1_2.unity
+    guid: 67645967a4fc1034f8bd36bbddb96e60
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_2_1.unity
+    guid: 6f87d8640bc2c99459751bbd15175c1e
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_2_2.unity
+    guid: 387db7059815d4f4fae7c3ee7e4d8e0b
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_3_1.unity
+    guid: 311b554b066261e43a62671eb9469dac
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_3_2.unity
+    guid: 2ae0f76cae102864ca61ca075072659d
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_4_1.unity
+    guid: a659dced823e45d48b771497bbfcd6f2
+  - enabled: 1
+    path: Assets/Scenes/Rooms/WarpRooms/Room_Warp_4_2.unity
+    guid: fd8de737cd1036c4e89106e906a9bc36
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_1_Bottom.unity
+    guid: d9d2d9339aec1eb428fde9285c817c9a
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_1_Top.unity
+    guid: 5d8733f07583aaf4fba569843d5d5d6d
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_elevator_2_Bottom.unity
+    guid: 83abe7ecf21506e4cb2c08a04c33747d
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_2_Top.unity
+    guid: 0455507a19018fa41befbe8c0a12d3f0
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_3_Bottom.unity
+    guid: 0987225d6ff60df4b879c0e4db39e651
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_3_Top.unity
+    guid: 8631dcd8db1e45b4eaaf9ad19eae86cb
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_4_Bottom.unity
+    guid: 6461a09d003224442ba82f709ac41c4a
+  - enabled: 1
+    path: Assets/Scenes/Rooms/ElevatorRooms/Room_Elevator_4_Top.unity
+    guid: a6ddf4a8479004e43bcf055c81575235
+  - enabled: 1
+    path: Assets/Scenes/Rooms/DevRooms/LoadTest1.unity
+    guid: 022beefccf29a8c4cb02740044b21e8b
+  - enabled: 1
+    path: Assets/Scenes/Rooms/DevRooms/LoadTest2.unity
+    guid: 64c51bf49c684c84faa82871f11edee7
+  - enabled: 1
+    path: Assets/Scenes/Rooms/DevRooms/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Rooms/DevRooms/TestArea.unity
+    guid: 8fab43f370ef5834398d39dcfbc244d9
   m_configObjects: {}

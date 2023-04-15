@@ -39,5 +39,11 @@ public class LoadManager : MonoBehaviour
                }
           }
 
+          //Find the warphole gameobject. If the player doesn't have the warp ability then destroy it.
+          if (!PlayerInfo.pInfo.hasWarp){
+               GameObject warpHole = GameObject.Find("WarpHole");
+               Destroy(warpHole);
+          }
+
      }
 }

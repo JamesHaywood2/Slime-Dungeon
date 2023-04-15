@@ -942,12 +942,20 @@ PrefabInstance:
       value: OneWayDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8227406933489543268, guid: 60d18537fb084c0479427b45099ca830, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7858728
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227406933489543268, guid: 60d18537fb084c0479427b45099ca830, type: 3}
       propertyPath: m_Size.y
-      value: 6.0064845
+      value: 2.2713673
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227406933489543268, guid: 60d18537fb084c0479427b45099ca830, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.53662926
       objectReference: {fileID: 0}
     - target: {fileID: 8227406933489543268, guid: 60d18537fb084c0479427b45099ca830, type: 3}
       propertyPath: m_Offset.y
-      value: 1.6483696
+      value: 0.6353394
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60d18537fb084c0479427b45099ca830, type: 3}
