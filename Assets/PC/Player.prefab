@@ -900,7 +900,7 @@ MonoBehaviour:
   wallCheckRadius: 0.5
   wallLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 1024
   hitboxCollider: {fileID: 0}
   attackCooldown: 0.15
   iFrameDuration: 0.2

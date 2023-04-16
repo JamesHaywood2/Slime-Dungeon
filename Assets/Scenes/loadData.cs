@@ -18,9 +18,6 @@ public class loadData : MonoBehaviour
         
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(0.9f, 2.0f,0f));
-
-
-
     }
         
 

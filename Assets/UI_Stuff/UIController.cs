@@ -26,6 +26,16 @@ public class UIController : MonoBehaviour
     public Button secretButton;
     private int secretCount;
     public VisualElement pauseMenu;
+    
+    //item labels in pauseMenu
+    public Label MeleeLabel;
+    public Label MeleeUpgradeLabel;
+    public Label DoubleJumpLabel;
+    public Label DashLabel;
+    public Label WallJumpLabel;
+    public Label WallBreakLabel;
+    public Label WarpLabel;
+    
 
     //HPBAR
     public VisualElement hpBar;
@@ -42,6 +52,7 @@ public class UIController : MonoBehaviour
     public Toggle meleeToggle;
     public TextField teleportDestination;
     public Button teleportButton;
+    public Button unlockRoomsButton;
 
     VisualElement root;
 
@@ -75,6 +86,17 @@ public class UIController : MonoBehaviour
         hpLabel = root.Q<Label>("hpExact");
         hpBar = root.Q<VisualElement>("hpFill");
 
+        //item labels
+        MeleeLabel = root.Q<Label>("MeleeLabel");
+        MeleeUpgradeLabel = root.Q<Label>("MeleeUpgradeLabel");
+        DashLabel = root.Q<Label>("DashLabel");
+        WallJumpLabel = root.Q<Label>("WallJumpLabel");
+        WallBreakLabel = root.Q<Label>("WallBreakLabel");
+        WarpLabel = root.Q<Label>("WarpLabel");
+        DoubleJumpLabel = root.Q<Label>("DoubleJumpLabel");
+
+
+
         //devMenu Variables
         devMenu = root.Q<VisualElement>("devMenu");
         healButton = root.Q<Button>("healButton");
@@ -85,6 +107,8 @@ public class UIController : MonoBehaviour
         meleeToggle = root.Q<Toggle>("meleeToggle");
         teleportDestination = root.Q<TextField>("tpDestinationField");
         teleportButton = root.Q<Button>("teleportButton");
+        unlockRoomsButton = root.Q<Button>("unlockRoomsButton");
+
 
         wallJumpToggle.value = PlayerInfo.pInfo.hasWallJump;
         wallBreakToggle.value = PlayerInfo.pInfo.hasWallBreak;
@@ -100,6 +124,7 @@ public class UIController : MonoBehaviour
         warpToggle.RegisterValueChangedCallback(WarpTogglePressed);
         meleeToggle.RegisterValueChangedCallback(MeleeTogglePressed);
         teleportButton.clicked += TeleportButtonPressed;
+        unlockRoomsButton.clicked += UnlockRoomsButtonPressed;
     }
 
     private void Update() {
@@ -142,6 +167,7 @@ public class UIController : MonoBehaviour
                 pauseMenu.style.display = DisplayStyle.Flex;
                 //settingsMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
+                updateItemList();
                 break;
             case MenuState.SettingsMenu:
                 pauseMenu.style.display = DisplayStyle.None;
@@ -155,6 +181,47 @@ public class UIController : MonoBehaviour
                 teleportDestination = root.Q<TextField>("tpDestinationField");
                 break;
         }
+    }
+
+    public void updateItemList(){
+        //Check if the player has the ability, then make the label visible to reflect that.
+        if (PlayerInfo.pInfo.hasMelee){
+            MeleeLabel.style.display = DisplayStyle.Flex;
+        } else {
+            MeleeLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasMeleeUpgrade){
+            MeleeUpgradeLabel.style.display = DisplayStyle.Flex;
+        } else {
+            MeleeUpgradeLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasDash){
+            DashLabel.style.display = DisplayStyle.Flex;
+        } else {
+            DashLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasWallJump){
+            WallJumpLabel.style.display = DisplayStyle.Flex;
+        } else {
+            WallJumpLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasWallBreak){
+            WallBreakLabel.style.display = DisplayStyle.Flex;
+        } else {
+            WallBreakLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasWarp){
+            WarpLabel.style.display = DisplayStyle.Flex;
+        } else {
+            WarpLabel.style.display = DisplayStyle.None;
+        }
+        if (PlayerInfo.pInfo.hasDoubleJump){
+            DoubleJumpLabel.style.display = DisplayStyle.Flex;
+        } else {
+            DoubleJumpLabel.style.display = DisplayStyle.None;
+        }
+
+
     }
 
     void ResumeButtonPressed(){
@@ -210,6 +277,11 @@ public class UIController : MonoBehaviour
     void TeleportButtonPressed(){
         Debug.Log("Teleporting to " + teleportDestination.text);
         SceneManager.LoadScene(teleportDestination.text);
+    }
+
+    void UnlockRoomsButtonPressed(){
+        Debug.Log("Unlocking all rooms");
+        MapLoader.S.unlockMap();
     }
 
 

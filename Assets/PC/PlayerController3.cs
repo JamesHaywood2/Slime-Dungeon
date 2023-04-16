@@ -382,7 +382,7 @@ public class PlayerController3 : MonoBehaviour
         {
             respawnPoint = other.transform;
         } 
-        //If the player's hurtbox collides with the enemy's main collider, or the enemy's hitbox, then the player takes damage.
+        //If the player's hurtbox collides with the 3's main collider, or the enemy's hitbox, then the player takes damage.
         //It will check if the player is invincible (invincible meaning they have taken damage recently).
         //If they are not invincible then it disables controls, sets the player to invincible, and then starts the invincibility timer.
         else if (other.tag == "Enemy" || other.tag == "HitBox") 
@@ -420,7 +420,12 @@ public class PlayerController3 : MonoBehaviour
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasMelee = true;
-        } else if (other.tag == "wallBreakItem")
+        }else if (other.tag == "meleeUpgradeItem"){
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.attackDamage += 2;
+            PlayerInfo.pInfo.hasMeleeUpgrade = true;
+        } 
+        else if (other.tag == "wallBreakItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasWallBreak = true;
@@ -428,6 +433,7 @@ public class PlayerController3 : MonoBehaviour
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.allowedJumps = 2;
+            PlayerInfo.pInfo.hasDoubleJump = true;
             maxJumps = 2;
         } else if (other.tag == "wallJumpItem")
         {

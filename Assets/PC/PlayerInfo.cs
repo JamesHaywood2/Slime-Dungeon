@@ -19,8 +19,10 @@ public class PlayerInfo : MonoBehaviour
 
     [Header("Flags")]
     public int allowedJumps = 1;
+    public bool hasDoubleJump;
     public bool hasWallJump;
     public bool hasMelee;
+    public bool hasMeleeUpgrade;
     public bool hasWallBreak;
     public bool hasDash;
     public bool hasWarp;
@@ -33,17 +35,6 @@ public class PlayerInfo : MonoBehaviour
     [Header("Rooms")]
     public string lastRoom;
     public string currentRoom;
-    public bool room_Start;
-    public bool room_Melee;
-    public bool room_WallBreak;
-    public bool room_WallJump;
-    public bool room_DoubleJump;
-    public bool room_Dash;
-    public bool room_WarpUnlock;
-
-    public bool room_1;
-    public bool room_2;
-
 
     private void Awake(){
         

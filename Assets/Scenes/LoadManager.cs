@@ -46,4 +46,8 @@ public class LoadManager : MonoBehaviour
           }
 
      }
+
+     private void LateUpdate() {
+          MapLoader.S.updateMap();
+     }
 }
