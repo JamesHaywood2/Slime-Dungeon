@@ -113,4 +113,13 @@ public class MapLoader : MonoBehaviour
         }
     }
 
+    public bool RoomTest(string roomName){
+        //If the player has been in a room, then the room will be visible (Flex).
+        if (root.Q<VisualElement>(roomName).style.display == DisplayStyle.Flex) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

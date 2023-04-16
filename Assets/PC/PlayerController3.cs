@@ -461,11 +461,14 @@ public class PlayerController3 : MonoBehaviour
     }
 
 
-    private void takeDamage(int damage){
+    public void takeDamage(int damage){
         //Updates health variable.
         PlayerInfo.pInfo.currentHealth -= damage;
         if (PlayerInfo.pInfo.currentHealth <= 0){
-            //Player is dead
+            //If the player's health reaches 0, then they die.
+            //Just reset the player's health and reload the scene for now.
+            PlayerInfo.pInfo.currentHealth = PlayerInfo.pInfo.maxHealth;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

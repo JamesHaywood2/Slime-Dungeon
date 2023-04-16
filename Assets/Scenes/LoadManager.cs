@@ -45,6 +45,10 @@ public class LoadManager : MonoBehaviour
                Destroy(warpHole);
           }
 
+          if (PlayerInfo.pInfo.currentHealth < PlayerInfo.pInfo.maxHealth){
+                    PlayerInfo.pInfo.currentHealth += 1;
+          }
+
      }
 
      private void LateUpdate() {

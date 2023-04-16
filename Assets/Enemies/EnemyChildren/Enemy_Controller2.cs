@@ -205,6 +205,12 @@ public class Enemy_Controller2 : MonoBehaviour
         if (enemy.health <= 0){
                 animator.SetTrigger("Killed");
                 animator.SetBool("Dead", true);
+                if (isDead == false){
+                    //If the player kills an enemy, and they have less than max health, they heal by 1.
+                    if (PlayerInfo.pInfo.currentHealth < PlayerInfo.pInfo.maxHealth){
+                        PlayerInfo.pInfo.currentHealth += 1;
+                    }
+                }
                 isDead = true;
                 hitboxCollider.enabled = false;
                 
