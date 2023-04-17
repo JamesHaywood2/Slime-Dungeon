@@ -372,6 +372,7 @@ public class PlayerController3 : MonoBehaviour
         else if(other.tag == "Hazard")
         {
             player.transform.position = new Vector3(checkPoint.position.x, checkPoint.position.y, checkPoint.position.z);
+            takeDamage(1);
         } 
         else if (other.tag == "Checkpoint")
         {

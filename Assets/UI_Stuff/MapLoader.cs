@@ -95,14 +95,14 @@ public class MapLoader : MonoBehaviour
         if (root.Q<VisualElement>(cR) != null){
             VisualElement room = root.Q<VisualElement>(cR);
             room.style.display = DisplayStyle.Flex;
+
+            //Set every other room background to blank.
+            foreach (string r in roomList){
+                root.Q<VisualElement>(r).style.backgroundImage = new StyleBackground();
+            }
         
             //Set the room background image to playerIcon.
             room.style.backgroundImage = new StyleBackground(playerIcon);
-
-            //set the last room style background image to blank.
-            string lR = PlayerInfo.pInfo.lastRoom;
-            VisualElement lastRoom = root.Q<VisualElement>(lR);
-            lastRoom.style.backgroundImage = new StyleBackground();
         }
 
 
