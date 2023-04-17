@@ -63,6 +63,10 @@ public class UIController : MonoBehaviour
     public TextField teleportDestination;
     public Button teleportButton;
     public Button unlockRoomsButton;
+    public Button attackDamageButton;
+    public Button jumpNumButton;
+    public TextField attackDamageField;
+    public TextField jumpNumField;
 
     VisualElement root;
 
@@ -136,6 +140,12 @@ public class UIController : MonoBehaviour
         teleportDestination = root.Q<TextField>("tpDestinationField");
         teleportButton = root.Q<Button>("teleportButton");
         unlockRoomsButton = root.Q<Button>("unlockRoomsButton");
+        attackDamageButton = root.Q<Button>("setDamage");
+        jumpNumButton = root.Q<Button>("setJumpNum");
+        attackDamageField = root.Q<TextField>("damageField");
+        jumpNumField = root.Q<TextField>("jumpField");
+
+
 
 
         wallJumpToggle.value = PlayerInfo.pInfo.hasWallJump;
@@ -143,6 +153,7 @@ public class UIController : MonoBehaviour
         dashToggle.value = PlayerInfo.pInfo.hasDash;
         warpToggle.value = PlayerInfo.pInfo.hasWarp;
         meleeToggle.value = PlayerInfo.pInfo.hasMelee;
+
         
 
         healButton.clicked += HealButtonPressed;
@@ -153,6 +164,8 @@ public class UIController : MonoBehaviour
         meleeToggle.RegisterValueChangedCallback(MeleeTogglePressed);
         teleportButton.clicked += TeleportButtonPressed;
         unlockRoomsButton.clicked += UnlockRoomsButtonPressed;
+        attackDamageButton.clicked += AttackDamageButtonPressed;
+        jumpNumButton.clicked += JumpNumButtonPressed;
     }
 
     private void Update() {
@@ -212,6 +225,12 @@ public class UIController : MonoBehaviour
     }
 
     public void updateItemList(){
+        if (PlayerInfo.pInfo.attackDamage > 1){
+            PlayerInfo.pInfo.hasMeleeUpgrade = true;
+        } else {
+            PlayerInfo.pInfo.hasMeleeUpgrade = false;
+        }
+
         //Check if the player has the ability, then make the label visible to reflect that.
         if (PlayerInfo.pInfo.hasMelee){
             MeleeLabel.style.display = DisplayStyle.Flex;
@@ -335,6 +354,16 @@ public class UIController : MonoBehaviour
     void UnlockRoomsButtonPressed(){
         Debug.Log("Unlocking all rooms");
         MapLoader.S.unlockMap();
+    }
+
+    void AttackDamageButtonPressed(){
+        Debug.Log("Changing attack damage");
+        PlayerInfo.pInfo.attackDamage = int.Parse(attackDamageField.text);
+    }
+
+    void JumpNumButtonPressed(){
+        Debug.Log("Changing jump number");
+        PlayerInfo.pInfo.allowedJumps = int.Parse(jumpNumField.text);
     }
 
 
