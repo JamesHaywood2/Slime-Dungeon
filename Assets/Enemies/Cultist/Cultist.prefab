@@ -215,13 +215,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  health: 5
+  health: 3
   moveSpeed: 2
   hitBoxSize: {x: 0.9, y: 0.03}
   hitBoxOffset: {x: 2, y: 2.5}
   attackRange: {x: 0, y: 0}
   attackSpeed: 1.5
-  attackDamage: 0
+  attackDamage: 2
   isWalking: 0
   isChilling: 0
   isPatrolling: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7a5135963ab424882840680acc94c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitboxCollider: {fileID: 5371786078469389462}
+  isDead: 0
   chillTime: 1
   hitTime: 0
   aggroRadius: 7.15
@@ -331,10 +331,5 @@ PrefabInstance:
 --- !u!4 &5371786078469389464 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2291583096653434873, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
-  m_PrefabInstance: {fileID: 6143257703987753825}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &5371786078469389462 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 2291583096653434871, guid: a2581dc627dce504ba08cf0b17156fde, type: 3}
   m_PrefabInstance: {fileID: 6143257703987753825}
   m_PrefabAsset: {fileID: 0}

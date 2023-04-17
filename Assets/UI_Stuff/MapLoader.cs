@@ -91,16 +91,19 @@ public class MapLoader : MonoBehaviour
     public void updateMap(){
         //Take the current room from PlayerInfo and set the corresponding room to be displayed.
         string cR = PlayerInfo.pInfo.currentRoom;
-        VisualElement room = root.Q<VisualElement>(cR);
-        room.style.display = DisplayStyle.Flex;
         
-        //Set the room background image to playerIcon.
-        room.style.backgroundImage = new StyleBackground(playerIcon);
+        if (root.Q<VisualElement>(cR) != null){
+            VisualElement room = root.Q<VisualElement>(cR);
+            room.style.display = DisplayStyle.Flex;
+        
+            //Set the room background image to playerIcon.
+            room.style.backgroundImage = new StyleBackground(playerIcon);
 
-        //set the last room style background image to blank.
-        string lR = PlayerInfo.pInfo.lastRoom;
-        VisualElement lastRoom = root.Q<VisualElement>(lR);
-        lastRoom.style.backgroundImage = new StyleBackground();
+            //set the last room style background image to blank.
+            string lR = PlayerInfo.pInfo.lastRoom;
+            VisualElement lastRoom = root.Q<VisualElement>(lR);
+            lastRoom.style.backgroundImage = new StyleBackground();
+        }
 
 
         

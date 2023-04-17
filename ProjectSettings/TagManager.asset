@@ -24,6 +24,8 @@ TagManager:
   - Hurtbox
   - UnlockTrigger
   - WarpHole
+  - warpItem
+  - meleeUpgradeItem
   layers:
   - Default
   - TransparentFX

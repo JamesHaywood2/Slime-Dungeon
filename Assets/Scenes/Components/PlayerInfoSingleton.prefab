@@ -123,13 +123,13 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 5
   playerPos: {x: 0, y: 0}
-  allowedJumps: 3
+  allowedJumps: 1
   hasDoubleJump: 0
-  hasWallJump: 1
-  hasMelee: 1
+  hasWallJump: 0
+  hasMelee: 0
   hasMeleeUpgrade: 0
-  hasWallBreak: 1
-  hasDash: 1
+  hasWallBreak: 0
+  hasDash: 0
   hasWarp: 0
   attackDamage: 1
   attackForce: 50

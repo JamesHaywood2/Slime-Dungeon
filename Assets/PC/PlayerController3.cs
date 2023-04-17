@@ -443,6 +443,9 @@ public class PlayerController3 : MonoBehaviour
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasDash = true;
+        } else if (other.tag == "warpItem"){
+            Destroy(other.gameObject);
+            PlayerInfo.pInfo.hasWarp = true;
         }
     }
 
