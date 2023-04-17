@@ -85,7 +85,34 @@
         </ui:VisualElement>
         <ui:Button display-tooltip-when-elided="true" name="secretButton" style="background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); position: absolute; top: 10%; left: 49%; width: 2%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 2%; overflow: visible;" />
     </ui:VisualElement>
-    <ui:VisualElement name="settingsMenu" style="display: none;" />
+    <ui:VisualElement name="settingsMenu" style="height: 100%; width: 100%; background-color: rgba(43, 43, 43, 0.52); align-items: center; justify-content: flex-start; flex-direction: column; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-bottom: 0; display: none; padding-left: 0; padding-right: 0; padding-top: 0;">
+        <ui:Label text="Game Paused" display-tooltip-when-elided="true" name="pauseText" style="font-size: 59%; -unity-font-style: bold; color: rgb(0, 0, 0); -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: initial; -unity-text-align: middle-center; align-items: center; width: auto; white-space: normal; position: relative; bottom: auto; left: auto; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; top: 8%;" />
+        <ui:VisualElement name="MenuContainer" style="height: 100%; width: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-color: rgba(0, 0, 0, 0); left: 0; top: 0; align-items: center; position: absolute; right: 0; bottom: 0; padding-left: 0; display: flex;">
+            <ui:VisualElement name="Menu" style="background-image: url(&apos;/Assets/UI_Stuff/PauseMenuTemplate.png&apos;); align-items: center; padding-left: 4%; padding-right: 4%; padding-top: 3.5%; padding-bottom: 3.5%; position: absolute; bottom: auto; right: auto; top: 15%; left: 15%; height: 70%; width: 70%;">
+                <ui:VisualElement name="Buttons" style="height: 15%; width: 100%; flex-direction: row; align-items: center; justify-content: space-around; padding-left: -4px; display: flex; margin-bottom: 1%;">
+                    <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" focusable="false" class="buttonStyle" style="left: auto; position: relative; width: 25%; height: 85%; font-size: 48%;" />
+                    <ui:Button text="Apply" display-tooltip-when-elided="true" name="applyButton" focusable="false" class="buttonStyle" style="left: auto; position: relative; width: 25%; height: 85%; font-size: 48%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Utility" style="max-width: none; height: 100%; width: 100%; flex-direction: row; align-items: stretch; justify-content: space-between; display: flex;">
+                    <ui:VisualElement name="slidersS" style="width: 100%; height: 100%;">
+                        <ui:VisualElement name="sound" style="flex-direction: row; width: 100%; height: 25%;">
+                            <ui:Label text="Sound" display-tooltip-when-elided="true" style="-unity-text-align: middle-right; width: 19%; height: 100%; font-size: 70%; -unity-font-style: bold;" />
+                            <ui:Slider picking-mode="Ignore" value="42" high-value="100" name="SoundVolume" inverted="false" focusable="false" show-input-field="false" usage-hints="None" tooltip="Slide to volume of sound effects" style="width: 64%; font-size: 78%; -unity-font-style: bold; color: rgb(0, 0, 0); justify-content: space-between; align-items: center;">
+                                <ui:Label text="#" display-tooltip-when-elided="true" name="soundVolumeExact" style="font-size: 22%; -unity-text-align: middle-center;" />
+                            </ui:Slider>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="music" style="flex-direction: row; width: 100%; height: 25%;">
+                            <ui:Label text="Music" display-tooltip-when-elided="true" style="-unity-text-align: middle-right; width: 19%; height: 100%; font-size: 70%; -unity-font-style: bold;" />
+                            <ui:Slider picking-mode="Ignore" value="42" high-value="100" name="MusicVolume" inverted="false" focusable="false" style="width: 64%; font-size: 78%; -unity-font-style: bold; color: rgb(0, 0, 0); justify-content: space-between; align-items: center;">
+                                <ui:Label text="#" display-tooltip-when-elided="true" name="musicVolumeExact" style="font-size: 22%; -unity-text-align: middle-center;" />
+                            </ui:Slider>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button display-tooltip-when-elided="true" name="secretButton" style="background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); position: absolute; top: 10%; left: 49%; width: 2%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 2%; overflow: visible;" />
+    </ui:VisualElement>
     <ui:VisualElement name="mainMenu" style="display: none;" />
     <ui:VisualElement name="devMenu" style="display: none; width: 100%; height: 100%; background-color: rgba(43, 43, 43, 0.52); padding-left: 550px; padding-right: 550px; padding-top: 131px; padding-bottom: 131px;">
         <ui:VisualElement name="devMenuContainer" style="background-image: url(&apos;/Assets/UI_Stuff/mapContainer.png&apos;); height: 100%; width: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; align-items: center; justify-content: flex-start; position: absolute; left: 67%; top: 15%;">

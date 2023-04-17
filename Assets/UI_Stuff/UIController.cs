@@ -35,6 +35,16 @@ public class UIController : MonoBehaviour
     public Label WallJumpLabel;
     public Label WallBreakLabel;
     public Label WarpLabel;
+
+    //settings menu
+    public VisualElement settingsMenu;
+    public Button backButton;
+    public Button applyButton;
+    public Slider musicSlider;
+    public Slider soundSlider;
+    public Label musicLabel;
+    public Label soundLabel;
+
     
 
     //HPBAR
@@ -94,6 +104,24 @@ public class UIController : MonoBehaviour
         WallBreakLabel = root.Q<Label>("WallBreakLabel");
         WarpLabel = root.Q<Label>("WarpLabel");
         DoubleJumpLabel = root.Q<Label>("DoubleJumpLabel");
+
+        //settings menu
+        settingsMenu = root.Q<VisualElement>("settingsMenu");
+        backButton = root.Q<Button>("backButton");
+        applyButton = root.Q<Button>("applyButton");
+        musicSlider = root.Q<Slider>("MusicVolume");
+        soundSlider = root.Q<Slider>("SoundVolume");
+        musicLabel = root.Q<Label>("musicVolumeExact");
+        soundLabel = root.Q<Label>("soundVolumeExact");
+        musicSlider.value = SoundManager.instance.musicVolume*100f;
+        soundSlider.value = SoundManager.instance.soundVolume*100f;
+        musicLabel.text = (SoundManager.instance.musicVolume*100f).ToString();
+        soundLabel.text = (SoundManager.instance.soundVolume*100f).ToString();
+
+        backButton.clicked += BackButtonPressed;
+        applyButton.clicked += ApplyButtonPressed;
+        musicSlider.RegisterValueChangedCallback(MusicSliderChanged);
+        soundSlider.RegisterValueChangedCallback(SoundSliderChanged);
 
 
 
@@ -160,23 +188,23 @@ public class UIController : MonoBehaviour
         switch (activeMenu){
             case MenuState.none:
                 pauseMenu.style.display = DisplayStyle.None;
-                //settingsMenu.style.display = DisplayStyle.None;
+                settingsMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.PauseMenu:
                 pauseMenu.style.display = DisplayStyle.Flex;
-                //settingsMenu.style.display = DisplayStyle.None;
+                settingsMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 updateItemList();
                 break;
             case MenuState.SettingsMenu:
                 pauseMenu.style.display = DisplayStyle.None;
-                //settingsMenu.style.display = DisplayStyle.Flex;
+                settingsMenu.style.display = DisplayStyle.Flex;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.None;
                 break;
             case MenuState.devMenu:
                 pauseMenu.style.display = DisplayStyle.None;
-                //settingsMenu.style.display = DisplayStyle.None;
+                settingsMenu.style.display = DisplayStyle.None;
                 root.Q<VisualElement>("devMenu").style.display = DisplayStyle.Flex;
                 teleportDestination = root.Q<TextField>("tpDestinationField");
                 break;
@@ -233,11 +261,36 @@ public class UIController : MonoBehaviour
     //When the settings button is pressed 
     void SettingsButtonPressed(){
         Debug.Log("Settings button pressed.");
+        activeMenu = MenuState.SettingsMenu;
+
+        musicSlider.value = SoundManager.instance.musicVolume*100f;
+        soundSlider.value = SoundManager.instance.soundVolume*100f;
+        musicLabel.text = (SoundManager.instance.musicVolume*100f).ToString();
+        soundLabel.text = (SoundManager.instance.soundVolume*100f).ToString();
+
     }
 
     void MenuButtonPressed(){
         Debug.Log("Menu button pressed.");
         SceneManager.LoadScene("TitleScreen");
+    }
+
+    void BackButtonPressed(){
+        Debug.Log("Back button pressed.");
+        activeMenu = MenuState.PauseMenu;
+    }
+
+    void MusicSliderChanged(ChangeEvent<float> evt){
+        musicLabel.text = evt.newValue.ToString();
+    }
+
+    void SoundSliderChanged(ChangeEvent<float> evt){
+        soundLabel.text = evt.newValue.ToString();
+    }
+
+    void ApplyButtonPressed(){
+        Debug.Log("Apply button pressed.");
+        SoundManager.instance.SetVolume(musicSlider.value/100, soundSlider.value/100);
     }
 
     void SecretButtonPressed(){

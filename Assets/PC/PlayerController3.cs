@@ -197,6 +197,7 @@ public class PlayerController3 : MonoBehaviour
             isDashing = true;
             dashCounter = dashTime;
             controlsEnabled = false;
+            SoundManager.instance.PlaySound("dash");
         }
 
         //If the player is dashing then the dash counter is reduced by time.
@@ -286,6 +287,7 @@ public class PlayerController3 : MonoBehaviour
         //Actual hits are detected in the HitDetection script of the hitbox object.
         if (Input.GetKeyDown(KeyCode.X) && (attackCounter < 0))
         {
+            SoundManager.instance.PlaySound("attack");
             //Debug.Log("Attack!");
             attackCounter = attackCooldown;
             //Once you press the attack key it resizes the hitbox so it can actually hit stuff.
@@ -466,6 +468,7 @@ public class PlayerController3 : MonoBehaviour
 
 
     public void takeDamage(int damage){
+        SoundManager.instance.PlaySound("playerHit");
         //Updates health variable.
         PlayerInfo.pInfo.currentHealth -= damage;
         if (PlayerInfo.pInfo.currentHealth <= 0){

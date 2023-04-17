@@ -16,3 +16,12 @@
     left: 69px;
     background-image: url('/Assets/UI_Stuff/Button_hover.png');
 }
+
+.unity-base-slider__tracker {
+}
+
+.unity-base-slider__dragger {
+    position: absolute;
+    height: 30px;
+    width: 41px;
+}
