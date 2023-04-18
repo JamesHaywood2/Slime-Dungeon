@@ -66,6 +66,14 @@ public class PlayerController3 : MonoBehaviour
     [Header("Hitbox")]
     public BoxCollider2D hitboxCollider;
 
+    [SerializeField]private Vector2 hitboxForwardOffset;
+    [SerializeField]private Vector2 hitboxForwardSize;
+    [SerializeField]private Vector2 hitboxDownSize;
+    [SerializeField]private Vector2 hitboxDownOffset;
+    [SerializeField]private Vector2 hitboxUpOffset;
+    [SerializeField]private Vector2 hitboxUpSize;
+
+
     [Header("attack Cooldown")]
     [SerializeField]private float attackCooldown = 0.15f;
     private float attackCounter;
@@ -309,23 +317,23 @@ public class PlayerController3 : MonoBehaviour
     }
 
     private void AttackUp(){
-        hitboxCollider.size = new Vector2(3f, 1f);
-        hitboxCollider.offset = new Vector2(0.1f, 1.5f);
+        hitboxCollider.size = hitboxUpSize;
+        hitboxCollider.offset = hitboxUpOffset;
     }
 
     private void AttackDown(){
-        hitboxCollider.size = new Vector2(3f, 1.2f);
-        hitboxCollider.offset = new Vector2(0.1f, -1.4f);
+        hitboxCollider.size = hitboxDownSize;
+        hitboxCollider.offset = hitboxDownOffset;
     }
 
     private void AttackForward(){
-        hitboxCollider.size = new Vector2(2f, 1.5f);
-        hitboxCollider.offset = new Vector2(1.3f, 0);
+        hitboxCollider.size = hitboxForwardSize;
+        hitboxCollider.offset = hitboxForwardOffset;
     }
 
     private void hitboxOff(){
-        hitboxCollider.size = new Vector2(0, 0);
-        hitboxCollider.offset = new Vector2(0, 0);
+        hitboxCollider.size = Vector2.zero;
+        hitboxCollider.offset = Vector2.zero;
     }
 
     private void Animate(){
