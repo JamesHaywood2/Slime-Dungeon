@@ -13,7 +13,7 @@
 }
 
 .buttonStyle:hover {
-    left: 69px;
+    left: auto;
     background-image: url('/Assets/UI_Stuff/Button_hover.png');
 }
 

@@ -283,6 +283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.25
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &128636472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88145,11 +88148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.391
+      value: -0.417
       objectReference: {fileID: 0}
     - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.111
+      value: -0.119
       objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707560, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_Name

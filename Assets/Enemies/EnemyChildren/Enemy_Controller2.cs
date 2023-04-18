@@ -29,6 +29,9 @@ public class Enemy_Controller2 : MonoBehaviour
     public float attackRange;
     private float distance;
 
+    private float speed;
+    private int absBumpCount;
+
     
 
 
@@ -51,6 +54,8 @@ public class Enemy_Controller2 : MonoBehaviour
 
 
         chillCounter = chillTime;
+
+        speed = enemy.moveSpeed;
     }
 
     // Update is called once per frame
@@ -240,7 +245,7 @@ public class Enemy_Controller2 : MonoBehaviour
         if (isHit == true){
             //RB.velocity = new Vector2(-direction * 1f, .25f);
         } else if (enemy.isWalking){
-            RB.velocity = new Vector2(direction * enemy.moveSpeed, RB.velocity.y);
+            RB.velocity = new Vector2(direction * speed, RB.velocity.y);
         } else {
             RB.velocity = new Vector2(0, RB.velocity.y);
         }
@@ -257,7 +262,7 @@ public class Enemy_Controller2 : MonoBehaviour
             RB.transform.position += new Vector3(-direction * RB.GetComponent<CapsuleCollider2D>().offset.x + (direction * (RB.GetComponent<CapsuleCollider2D>().size.x)/2), 0f, 0f);
             
             enemy.isAggro = false;
-            //enemy.isReturning = true;
+            enemy.isReturning = true;
         } else if (other.tag == "JumpPad"){
             RB.velocity = new Vector2(RB.velocity.x, other.GetComponent<JumpPad>().jumpPower);
         }
@@ -322,7 +327,6 @@ public class Enemy_Controller2 : MonoBehaviour
         }
         return d;
     }
-
      #region EDITOR METHODS
     void OnDrawGizmosSelected()
     {

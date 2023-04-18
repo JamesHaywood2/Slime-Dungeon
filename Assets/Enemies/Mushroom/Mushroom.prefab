@@ -189,7 +189,7 @@ MonoBehaviour:
   hitTime: 1
   aggroRadius: 4.25
   fovRadius: 10.68
-  attackRange: 2.12
+  attackRange: 1.62
 --- !u!1 &8690928587821966737
 GameObject:
   m_ObjectHideFlags: 0

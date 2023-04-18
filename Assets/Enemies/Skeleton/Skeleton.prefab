@@ -41,7 +41,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.044611216, y: 0.0483284}
@@ -246,7 +246,7 @@ MonoBehaviour:
   hitTime: 1
   aggroRadius: 5.57
   fovRadius: 18.42
-  attackRange: 2.29
+  attackRange: 1.45
 --- !u!1001 &2291583097025935870
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -198,6 +198,7 @@ public class PlayerController3 : MonoBehaviour
             dashCounter = dashTime;
             controlsEnabled = false;
             SoundManager.instance.PlaySound("dash");
+            animator.SetTrigger("Dash");
         }
 
         //If the player is dashing then the dash counter is reduced by time.
@@ -423,32 +424,39 @@ public class PlayerController3 : MonoBehaviour
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasMelee = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.melee);
         }else if (other.tag == "meleeUpgradeItem"){
             Destroy(other.gameObject);
             PlayerInfo.pInfo.attackDamage += 2;
             PlayerInfo.pInfo.hasMeleeUpgrade = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.meleeUpgrade);
         } 
         else if (other.tag == "wallBreakItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasWallBreak = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.wallBreak);
         } else if (other.tag == "doubleJumpItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.allowedJumps = 2;
             PlayerInfo.pInfo.hasDoubleJump = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.doubleJump);
             maxJumps = 2;
         } else if (other.tag == "wallJumpItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasWallJump = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.wallJump);
         } else if (other.tag == "dashItem")
         {
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasDash = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.dash);
         } else if (other.tag == "warpItem"){
             Destroy(other.gameObject);
             PlayerInfo.pInfo.hasWarp = true;
+            itemGainUI.S.DisplayInfo(itemGainUI.itemType.warp);
         }
     }
 

@@ -5,16 +5,18 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private float cameraOffset = 2.0f;
-    [SerializeField] private float smoothTime = 0.25f;
+    [SerializeField] private float smoothTime = 0.15f;
     [SerializeField] private float upLookOffset = 3f;
     [SerializeField] private float downLookOffset = 1f;
     private float cameraY;
     private Vector3 velocity = Vector3.zero;
     
     private GameObject player;
+    
 
     private void Start() {
         this.player = GameObject.Find("Player");
+        transform.position = new Vector3(this.player.transform.position.x, this.player.transform.position.y + cameraOffset, transform.position.z);
     }
 
     // Update is called once per frame

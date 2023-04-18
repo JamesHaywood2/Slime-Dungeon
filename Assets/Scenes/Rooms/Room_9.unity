@@ -283,6 +283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.25
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &144169236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,11 +315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707566, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.3
+      value: -70.68
       objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707566, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -25.5
+      value: -25.42
       objectReference: {fileID: 0}
     - target: {fileID: 2738238897243707566, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.z
@@ -70349,7 +70352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 953612069, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: Destination
-      value: Room_Cannon
+      value: Room_8
       objectReference: {fileID: 0}
     - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.x
@@ -70416,6 +70419,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1252262886}
     m_Modifications:
+    - target: {fileID: 2056195007892390, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7348604
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056195007892390, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.03412485
+      objectReference: {fileID: 0}
     - target: {fileID: 2949171873658642801, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -70459,6 +70470,10 @@ PrefabInstance:
     - target: {fileID: 2949171873658642801, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265022122158739489, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
+      propertyPath: attackRange
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 6880537477942228031, guid: 7526b2bf685155e42ae036bf00f2fa99, type: 3}
       propertyPath: m_Name
@@ -70620,11 +70635,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: -37.12
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.9
+      value: -32.56
       objectReference: {fileID: 0}
     - target: {fileID: 6319059866141763010, guid: d37e0e8032117674ca78b567d372250a, type: 3}
       propertyPath: m_LocalPosition.z

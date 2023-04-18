@@ -13,8 +13,6 @@ public class LoadManager : MonoBehaviour
 
     private GameObject player;
 
-
-
     // Start is called before the first frame update
     void Start(){
           GameObject loadSpot = GameObject.Find("load_from_" + PlayerInfo.pInfo.lastRoom);
