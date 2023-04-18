@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.15
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &171520263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,7 +598,7 @@ GameObject:
   - component: {fileID: 1485246478}
   - component: {fileID: 1485246477}
   - component: {fileID: 1485246479}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tilemap
   m_TagString: Terrain
   m_Icon: {fileID: 0}

@@ -12,11 +12,30 @@ public class CameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     
     private GameObject player;
+
+    private GameObject background;
     
 
     private void Start() {
         this.player = GameObject.Find("Player");
         transform.position = new Vector3(this.player.transform.position.x, this.player.transform.position.y + cameraOffset, transform.position.z);
+
+        //find the Background game object which is the child of the camera.
+        background = transform.GetChild(0).gameObject;
+        //get the size of the camera in pixels.
+        float camSizeY = Camera.main.pixelHeight;
+        float camSizeX = Camera.main.pixelWidth;
+
+        //Get the target size of the background image by taking the size of the camera and dividing it by the size of the background image.
+        float targetSizeY = camSizeY / background.GetComponent<SpriteRenderer>().sprite.texture.height;
+        float targetSizeX = camSizeX / background.GetComponent<SpriteRenderer>().sprite.texture.width;
+
+        //Set the background image to the target size.
+        background.transform.localScale = new Vector3(targetSizeX, targetSizeY, 1);
+        
+
+        
+
     }
 
     // Update is called once per frame

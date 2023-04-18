@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.15
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1 &388145968
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +717,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: LoadZone
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 653199174547820389, guid: 4702600caa40fa949902aef7ce135a61, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4702600caa40fa949902aef7ce135a61, type: 3}
 --- !u!1 &434114261 stripped
 GameObject:

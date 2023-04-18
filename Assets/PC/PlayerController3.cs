@@ -382,7 +382,13 @@ public class PlayerController3 : MonoBehaviour
         }
         else if(other.tag == "Hazard")
         {
-            player.transform.position = new Vector3(checkPoint.position.x, checkPoint.position.y, checkPoint.position.z);
+            //If the checkpoint has not been set, then the player will respawn from where they entered from. Which is load_from_lastroom
+            if (checkPoint == null)
+            {
+                player.transform.position = new Vector3(LoadManager.S.loadSpot.transform.position.x, LoadManager.S.loadSpot.transform.position.y, LoadManager.S.loadSpot.transform.position.z);
+            } else {
+                player.transform.position = new Vector3(checkPoint.position.x, checkPoint.position.y, checkPoint.position.z);
+            }
             takeDamage(1);
         } 
         else if (other.tag == "Checkpoint")

@@ -10,12 +10,16 @@ upon loading into the room. If it does not exist then it just teleports the play
 */
 public class LoadManager : MonoBehaviour
 {
+     public static LoadManager S;
 
-    private GameObject player;
+     private GameObject player;
+
+     public GameObject loadSpot;
 
     // Start is called before the first frame update
     void Start(){
-          GameObject loadSpot = GameObject.Find("load_from_" + PlayerInfo.pInfo.lastRoom);
+          S = this;
+          loadSpot = GameObject.Find("load_from_" + PlayerInfo.pInfo.lastRoom);
           player = GameObject.Find("Player");
 
           if (loadSpot != null){
