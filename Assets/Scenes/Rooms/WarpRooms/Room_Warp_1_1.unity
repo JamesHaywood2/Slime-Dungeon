@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.25
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &641172613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15673,6 +15676,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6365115097424851875, guid: ee69f61adf2e9fd4786ebb652c7b13d7, type: 3}
+      propertyPath: Destination
+      value: Room_Warp_1_2
+      objectReference: {fileID: 0}
     - target: {fileID: 6849677510795177514, guid: ee69f61adf2e9fd4786ebb652c7b13d7, type: 3}
       propertyPath: m_RootOrder
       value: 1

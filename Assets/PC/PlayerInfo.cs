@@ -33,7 +33,7 @@ public class PlayerInfo : MonoBehaviour
     public Hashtable oneWayDoors;
 
     [Header("Rooms")]
-    public string lastRoom;
+    public string lastRoom = "Room_Start";
     public string currentRoom;
 
     private void Awake(){
@@ -47,6 +47,7 @@ public class PlayerInfo : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         oneWayDoors = new Hashtable();
         oneWayDoors.Add("test", false);
+        lastRoom = "Room_Start";
 
     }
 

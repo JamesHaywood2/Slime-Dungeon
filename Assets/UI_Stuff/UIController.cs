@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour
     
 
     //HPBAR
+    public VisualElement hpBarContainer;
     public VisualElement hpBar;
     public Label hpLabel;
     private float hpBarCurrentWidth;
@@ -74,6 +75,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        S = this;
         //Assigns the UI document the script is attached to to root.
         root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -99,6 +101,7 @@ public class UIController : MonoBehaviour
         //Health Bar Variables
         hpLabel = root.Q<Label>("hpExact");
         hpBar = root.Q<VisualElement>("hpFill");
+        hpBarContainer = root.Q<VisualElement>("healthBar");
 
         //item labels
         MeleeLabel = root.Q<Label>("MeleeLabel");
@@ -291,6 +294,7 @@ public class UIController : MonoBehaviour
 
     void MenuButtonPressed(){
         Debug.Log("Menu button pressed.");
+        PlayerInfo.pInfo.lastRoom = PlayerInfo.pInfo.currentRoom;
         SceneManager.LoadScene("TitleScreen");
     }
 
