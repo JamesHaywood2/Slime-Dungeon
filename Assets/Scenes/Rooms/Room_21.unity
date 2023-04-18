@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.15
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1 &261131583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1061,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3577794599297263692, guid: ff51a06d64df4b74e8b16d830813e090, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577794599297263693, guid: ff51a06d64df4b74e8b16d830813e090, type: 3}
+      propertyPath: hasDash
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
