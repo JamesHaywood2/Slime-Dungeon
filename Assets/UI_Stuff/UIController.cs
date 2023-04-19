@@ -120,10 +120,10 @@ public class UIController : MonoBehaviour
         soundSlider = root.Q<Slider>("SoundVolume");
         musicLabel = root.Q<Label>("musicVolumeExact");
         soundLabel = root.Q<Label>("soundVolumeExact");
-        musicSlider.value = SoundManager.instance.musicVolume*100f;
-        soundSlider.value = SoundManager.instance.soundVolume*100f;
-        musicLabel.text = (SoundManager.instance.musicVolume*100f).ToString();
-        soundLabel.text = (SoundManager.instance.soundVolume*100f).ToString();
+        musicSlider.value = 100f;
+        soundSlider.value = 100f;
+        musicLabel.text = (100f).ToString();
+        soundLabel.text = (100f).ToString();
 
         backButton.clicked += BackButtonPressed;
         applyButton.clicked += ApplyButtonPressed;

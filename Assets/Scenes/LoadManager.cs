@@ -56,4 +56,13 @@ public class LoadManager : MonoBehaviour
      private void LateUpdate() {
           MapLoader.S.updateMap();
      }
+
+     //Draw a gizmo to show where the loadspot is.
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 0.5f);
+        
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, new Vector3(0.9f, 2.0f,0f));
+    }
 }

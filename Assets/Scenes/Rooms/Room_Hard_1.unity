@@ -722,7 +722,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -766,6 +766,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.15
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &398338853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -775,7 +778,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1513032225, guid: 6c38a8300183e094698d730e5daf1af1, type: 3}
       propertyPath: health
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1513032225, guid: 6c38a8300183e094698d730e5daf1af1, type: 3}
       propertyPath: moveSpeed
@@ -851,11 +854,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9164437474653412530, guid: 6c38a8300183e094698d730e5daf1af1, type: 3}
       propertyPath: fovRadius
-      value: 18.76
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 9164437474653412530, guid: 6c38a8300183e094698d730e5daf1af1, type: 3}
       propertyPath: aggroRadius
-      value: 8.3
+      value: 9.24
       objectReference: {fileID: 0}
     - target: {fileID: 9164437474653412530, guid: 6c38a8300183e094698d730e5daf1af1, type: 3}
       propertyPath: attackRange

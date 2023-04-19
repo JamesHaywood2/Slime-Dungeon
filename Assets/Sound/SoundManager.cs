@@ -8,8 +8,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] audioClips;
 
-    public float musicVolume = 0.5f;
-    public float soundVolume=1;
+    public float musicVolume = 1f;
+    public float soundVolume=1f;
 
 
     private void Start() {

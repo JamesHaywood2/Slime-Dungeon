@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float cameraOffset = 2.0f;
+    [SerializeField] private float cameraOffset = 2.5f;
     [SerializeField] private float smoothTime = 0.15f;
     [SerializeField] private float upLookOffset = 3f;
     [SerializeField] private float downLookOffset = 1f;
@@ -30,8 +30,13 @@ public class CameraController : MonoBehaviour
         float targetSizeY = camSizeY / background.GetComponent<SpriteRenderer>().sprite.texture.height;
         float targetSizeX = camSizeX / background.GetComponent<SpriteRenderer>().sprite.texture.width;
 
+        //get camera size
+        float camSize = Camera.main.orthographicSize;
+
+        Vector3 targetSize = new Vector3(targetSizeX* (1 + camSize/20f), targetSizeY*(1 + camSize/20f), 1);
+
         //Set the background image to the target size.
-        background.transform.localScale = new Vector3(targetSizeX, targetSizeY, 1);
+        background.transform.localScale = targetSize;
         
 
         

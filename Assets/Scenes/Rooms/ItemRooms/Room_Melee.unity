@@ -282,6 +282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 2
+  smoothTime: 0.15
+  upLookOffset: 3
+  downLookOffset: 1
 --- !u!1001 &630479405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -446,7 +449,7 @@ Transform:
   m_Children:
   - {fileID: 1485246476}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1425448679
 PrefabInstance:
@@ -21584,6 +21587,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 97877245}
     m_Modifications:
+    - target: {fileID: 1253676964704414537, guid: b3b337ecf7480454faec34d6351f1f79, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253676964704414537, guid: b3b337ecf7480454faec34d6351f1f79, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 486195491
+      objectReference: {fileID: 0}
     - target: {fileID: 5421182478023697662, guid: b3b337ecf7480454faec34d6351f1f79, type: 3}
       propertyPath: m_RootOrder
       value: 0

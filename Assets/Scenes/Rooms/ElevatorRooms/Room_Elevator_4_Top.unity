@@ -1245,7 +1245,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 953612069, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: Destination
-      value: Room_Warp_1_2
+      value: Room_Warp_1_1
       objectReference: {fileID: 0}
     - target: {fileID: 1668871973078298999, guid: d6e34306bc9b82142a2b41c3778a6169, type: 3}
       propertyPath: m_LocalPosition.x
