@@ -3,9 +3,10 @@ A simple metroidvania-esque game made using Unity and C# for CS 347 Intro to Vid
 Play as a little slime person named Slimey as he traverses a dungeon looking for the exit.
 Pick up power-ups and items along the way to help you traverse the dungeon and beat back malicous monsters keeping you tracked.
 
-Code written by James Haywood.  
-Main character art by China Gunter.  
-Misc help from Anthony Wittenborn and G Piddington
+Code written by James Haywood  
+Main character art by China Gunter  
+Misc help from Anthony Wittenborn and G Piddington  
+Design/planning by Everyone  
 
 Demo Video: https://youtu.be/hRvBWRnvWDE   
 Design Document: https://docs.google.com/document/d/1tSB5BuIJuLymC13YeHAAgYpVwMajV2nrR82oQNVzKlE/edit?usp=sharing  
