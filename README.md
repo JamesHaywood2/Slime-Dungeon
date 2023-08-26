@@ -5,8 +5,11 @@ Pick up power-ups and items along the way to help you traverse the dungeon and b
 
 Code written by James Haywood.  
 Main character art by China Gunter.  
+Misc help from Anthony Wittenborn and G Piddington
 
-Demo Video: https://drive.google.com/file/d/1aS7EZGEtFUZzL4g_R-TrLw6GXZTUXNf9/view?usp=sharing  
+Demo Video: https://youtu.be/hRvBWRnvWDE   
+Design Document: https://docs.google.com/document/d/1tSB5BuIJuLymC13YeHAAgYpVwMajV2nrR82oQNVzKlE/edit?usp=sharing  
+
 
 Controls:  
 left and right arrow to move  
